@@ -1,0 +1,28 @@
+# Dependency directories
+node_modules/
+
+# Next.js build output
+.next/
+out/
+
+# Vercel deployment files
+.vercel/
+
+# Environment variable files
+.env
+.env.*
+
+# Log files
+logs/
+*.log
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# IDE / editor folders
+.vscode/
+.idea/
+
+# Miscellaneous
+coverage/
