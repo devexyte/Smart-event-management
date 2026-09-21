@@ -134,9 +134,19 @@ export default function LandingPage() {
         </span>
       </div>
 
-      {/* Hero Section in Clean White & University Blue Theme */}
-      <section className="relative bg-gradient-to-b from-blue-50/70 via-sky-50/30 to-[#f8fafc] py-14 sm:py-16 px-4 sm:px-6 lg:px-8 border-b border-slate-200">
-        <div className="max-w-4xl mx-auto text-center space-y-5">
+      {/* Hero Section in Clean Collegiate Sky Blue with Subtle Campus Watermark */}
+      <section className="relative overflow-hidden bg-gradient-to-b from-[#eaf2ff] via-[#f3f7fd] to-[#f8fafc] py-14 sm:py-18 px-4 sm:px-6 lg:px-8 border-b border-blue-100">
+        {/* Subtle, authentic campus architectural watermark (clean, natural, no AI blend modes) */}
+        <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden select-none">
+          <img
+            src="https://images.unsplash.com/photo-1541829070764-84a7d30dd3f3?w=1600&auto=format&fit=crop&q=80"
+            alt="Ramnarain Ruia Autonomous College Campus"
+            className="w-full h-full object-cover object-center opacity-[0.08]"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#f3f7fd]/40 to-[#f8fafc]" />
+        </div>
+
+        <div className="relative z-10 max-w-4xl mx-auto text-center space-y-5">
           {/* Institutional Badge */}
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-blue-200 text-xs text-blue-900 font-medium shadow-xs">
             <GraduationCap className="w-4 h-4 text-blue-600" />
