@@ -18,19 +18,19 @@ export const CertificateModal: React.FC<CertificateModalProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm overflow-y-auto">
-      <div className="bg-[#131d31] border border-slate-700 rounded-2xl max-w-2xl w-full p-6 shadow-2xl space-y-6 my-6">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-xs overflow-y-auto">
+      <div className="bg-white border border-slate-200 rounded-2xl max-w-2xl w-full p-6 shadow-2xl space-y-6 my-6">
         {/* Modal Top Bar */}
-        <div className="flex items-center justify-between pb-3 border-b border-slate-800 no-print">
+        <div className="flex items-center justify-between pb-3 border-b border-slate-100 no-print">
           <div className="flex items-center gap-2">
-            <Award className="w-5 h-5 text-amber-400" />
-            <h3 className="font-bold text-white text-base">
+            <Award className="w-5 h-5 text-amber-500" />
+            <h3 className="font-bold text-slate-900 text-base">
               Digital Certificate of Participation (FR17)
             </h3>
           </div>
           <button
             onClick={onClose}
-            className="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800"
+            className="p-1.5 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition-colors"
           >
             <X className="w-5 h-5" />
           </button>
@@ -110,21 +110,21 @@ export const CertificateModal: React.FC<CertificateModalProps> = ({
 
         {/* Modal Actions */}
         <div className="flex items-center justify-between gap-3 pt-2 no-print">
-          <span className="text-xs text-slate-400 font-mono">
-            Unique Verification Key: {certificate.verificationCode}
+          <span className="text-xs text-slate-500 font-mono">
+            Key: {certificate.verificationCode}
           </span>
 
           <div className="flex items-center gap-2">
             <button
               onClick={handlePrint}
-              className="px-4 py-2 rounded-lg bg-blue-600 hover:bg-blue-500 text-white text-xs font-semibold shadow-sm transition-colors flex items-center gap-1.5"
+              className="px-4 py-2 rounded-lg bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold shadow-xs transition-colors flex items-center gap-1.5"
             >
               <Printer className="w-3.5 h-3.5" />
               <span>Print / Save as PDF</span>
             </button>
             <button
               onClick={onClose}
-              className="px-4 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-medium"
+              className="px-4 py-2 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-medium transition-colors"
             >
               Close
             </button>

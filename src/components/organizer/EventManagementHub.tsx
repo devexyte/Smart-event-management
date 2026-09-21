@@ -49,13 +49,13 @@ export const EventManagementHub: React.FC = () => {
   return (
     <div className="space-y-6">
       {/* Header Banner */}
-      <div className="bg-[#131d31] border border-slate-800 rounded-2xl p-6 shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <div className="bg-white border border-slate-200 rounded-2xl p-6 shadow-xs flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-xl sm:text-2xl font-bold text-white tracking-tight flex items-center gap-2.5">
-            <CalendarPlus className="w-6 h-6 text-emerald-400" />
+          <h1 className="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight flex items-center gap-2.5">
+            <CalendarPlus className="w-6 h-6 text-blue-600" />
             <span>Event Management & Lifecycle (FR3, FR5, FR6, FR24)</span>
           </h1>
-          <p className="text-xs sm:text-sm text-slate-400 mt-1">
+          <p className="text-xs sm:text-sm text-slate-500 mt-1">
             Create draft events, request administrative approvals, update schedules, and manage the event lifecycle.
           </p>
         </div>
@@ -65,7 +65,7 @@ export const EventManagementHub: React.FC = () => {
             setEditingEvent(null);
             setShowCreationModal(true);
           }}
-          className="px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-semibold shadow-sm transition-colors flex items-center gap-2 self-start sm:self-auto shrink-0"
+          className="px-4 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold shadow-xs transition-colors flex items-center gap-2 self-start sm:self-auto shrink-0"
         >
           <Plus className="w-4 h-4" />
           <span>Create New Event (FR3)</span>
@@ -73,7 +73,7 @@ export const EventManagementHub: React.FC = () => {
       </div>
 
       {/* Status Filter Bar */}
-      <div className="flex flex-wrap items-center gap-1.5 bg-[#131d31] border border-slate-800 rounded-xl p-2 text-xs">
+      <div className="flex flex-wrap items-center gap-1.5 bg-white border border-slate-200 rounded-xl p-2 text-xs shadow-2xs">
         <span className="text-slate-400 px-2 font-medium text-[11px] uppercase tracking-wider">
           Filter Status:
         </span>
@@ -90,8 +90,8 @@ export const EventManagementHub: React.FC = () => {
             onClick={() => setStatusFilter(tab.id as any)}
             className={`px-3 py-1.5 rounded-lg font-medium transition-colors ${
               statusFilter === tab.id
-                ? 'bg-emerald-600 text-white font-semibold'
-                : 'text-slate-400 hover:text-white hover:bg-slate-800'
+                ? 'bg-blue-600 text-white font-semibold shadow-xs'
+                : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
             }`}
           >
             {tab.label}
@@ -105,60 +105,60 @@ export const EventManagementHub: React.FC = () => {
           return (
             <div
               key={event.id}
-              className="bg-[#131d31] border border-slate-800 rounded-xl p-5 shadow-sm hover:border-slate-700 transition-colors space-y-4"
+              className="bg-white border border-slate-200 rounded-xl p-5 shadow-xs hover:border-blue-300 hover:shadow-md transition-all space-y-4"
             >
               <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
                 {/* Event Info */}
                 <div className="space-y-2 flex-1 min-w-0">
                   <div className="flex flex-wrap items-center gap-2">
-                    <span className="text-xs font-semibold px-2.5 py-0.5 rounded bg-blue-600/20 text-blue-300 border border-blue-500/30">
+                    <span className="text-xs font-semibold px-2.5 py-0.5 rounded bg-blue-50 text-blue-700 border border-blue-200">
                       {event.category}
                     </span>
 
                     {/* Status Pills */}
                     {event.status === 'published' && (
-                      <span className="text-[11px] font-semibold px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+                      <span className="text-[11px] font-semibold px-2 py-0.5 rounded bg-emerald-50 text-emerald-700 border border-emerald-200">
                         ● Published & Live
                       </span>
                     )}
                     {event.status === 'pending_approval' && (
-                      <span className="text-[11px] font-semibold px-2 py-0.5 rounded bg-amber-500/10 text-amber-400 border border-amber-500/20 animate-pulse">
+                      <span className="text-[11px] font-semibold px-2 py-0.5 rounded bg-amber-50 text-amber-700 border border-amber-200 animate-pulse">
                         ⏳ Pending Admin Review
                       </span>
                     )}
                     {event.status === 'draft' && (
-                      <span className="text-[11px] font-semibold px-2 py-0.5 rounded bg-slate-500/10 text-slate-400 border border-slate-500/20">
+                      <span className="text-[11px] font-semibold px-2 py-0.5 rounded bg-slate-100 text-slate-600 border border-slate-200">
                         Draft
                       </span>
                     )}
                     {event.status === 'completed' && (
-                      <span className="text-[11px] font-semibold px-2 py-0.5 rounded bg-purple-500/10 text-purple-400 border border-purple-500/20">
+                      <span className="text-[11px] font-semibold px-2 py-0.5 rounded bg-purple-50 text-purple-700 border border-purple-200">
                         ✓ Completed
                       </span>
                     )}
                     {event.status === 'rejected' && (
-                      <span className="text-[11px] font-semibold px-2 py-0.5 rounded bg-rose-500/10 text-rose-400 border border-rose-500/20">
+                      <span className="text-[11px] font-semibold px-2 py-0.5 rounded bg-rose-50 text-rose-700 border border-rose-200">
                         ✕ Returned for Revision
                       </span>
                     )}
                     {event.status === 'archived' && (
-                      <span className="text-[11px] font-semibold px-2 py-0.5 rounded bg-slate-700/50 text-slate-400">
+                      <span className="text-[11px] font-semibold px-2 py-0.5 rounded bg-slate-100 text-slate-500 border border-slate-200">
                         Archived
                       </span>
                     )}
 
-                    <span className="text-xs text-slate-400 font-mono">
+                    <span className="text-xs text-slate-500 font-mono">
                       {event.registeredCount} / {event.capacity} Registered
                     </span>
                   </div>
 
-                  <h3 className="text-base font-bold text-white truncate">
+                  <h3 className="text-base font-bold text-slate-900 truncate">
                     {event.title}
                   </h3>
 
-                  <div className="flex flex-wrap items-center gap-4 text-xs text-slate-400">
+                  <div className="flex flex-wrap items-center gap-4 text-xs text-slate-500">
                     <span className="flex items-center gap-1.5">
-                      <Calendar className="w-3.5 h-3.5 text-blue-400" />
+                      <Calendar className="w-3.5 h-3.5 text-blue-600" />
                       {new Date(event.startDate).toLocaleDateString('en-US', {
                         month: 'short',
                         day: 'numeric',
@@ -166,16 +166,16 @@ export const EventManagementHub: React.FC = () => {
                       })}
                     </span>
                     <span className="flex items-center gap-1.5">
-                      <MapPin className="w-3.5 h-3.5 text-rose-400" />
+                      <MapPin className="w-3.5 h-3.5 text-rose-500" />
                       {event.venueName}
                     </span>
-                    <span className="font-mono text-emerald-400 font-semibold">
+                    <span className="font-mono text-emerald-600 font-semibold">
                       {event.price === 0 ? 'Free' : `₹${event.price}`}
                     </span>
                   </div>
 
                   {event.rejectionReason && (
-                    <div className="p-2.5 bg-rose-950/20 border border-rose-900/40 rounded-lg text-xs text-rose-300">
+                    <div className="p-2.5 bg-rose-50 border border-rose-200 rounded-lg text-xs text-rose-700">
                       <strong>Admin Rejection Note:</strong> {event.rejectionReason}
                     </div>
                   )}
@@ -189,9 +189,9 @@ export const EventManagementHub: React.FC = () => {
                       setEditingEvent(event);
                       setShowCreationModal(true);
                     }}
-                    className="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-medium border border-slate-700 transition-colors flex items-center gap-1.5"
+                    className="px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-medium border border-slate-200 transition-colors flex items-center gap-1.5"
                   >
-                    <Edit3 className="w-3.5 h-3.5" />
+                    <Edit3 className="w-3.5 h-3.5 text-slate-500" />
                     <span>Edit (FR5)</span>
                   </button>
 
@@ -199,7 +199,7 @@ export const EventManagementHub: React.FC = () => {
                   {(event.status === 'draft' || event.status === 'rejected') && (
                     <button
                       onClick={() => submitEventForApproval(event.id)}
-                      className="px-3 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-500 text-white text-xs font-semibold shadow-sm transition-colors flex items-center gap-1.5"
+                      className="px-3 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold shadow-xs transition-colors flex items-center gap-1.5"
                     >
                       <Send className="w-3.5 h-3.5" />
                       <span>Submit for Approval</span>
@@ -210,7 +210,7 @@ export const EventManagementHub: React.FC = () => {
                   {event.status === 'published' && (
                     <button
                       onClick={() => handleStateTransition(event, 'completed')}
-                      className="px-3 py-1.5 rounded-lg bg-purple-600 hover:bg-purple-500 text-white text-xs font-semibold shadow-sm transition-colors flex items-center gap-1.5"
+                      className="px-3 py-1.5 rounded-lg bg-purple-600 hover:bg-purple-700 text-white text-xs font-semibold shadow-xs transition-colors flex items-center gap-1.5"
                     >
                       <CheckSquare className="w-3.5 h-3.5" />
                       <span>Mark Completed</span>
@@ -221,9 +221,9 @@ export const EventManagementHub: React.FC = () => {
                   {event.status !== 'archived' && event.status !== 'draft' && (
                     <button
                       onClick={() => archiveEvent(event.id)}
-                      className="px-3 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 text-slate-400 hover:text-slate-200 border border-slate-800 text-xs font-medium transition-colors flex items-center gap-1.5"
+                      className="px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-600 border border-slate-200 text-xs font-medium transition-colors flex items-center gap-1.5"
                     >
-                      <Archive className="w-3.5 h-3.5" />
+                      <Archive className="w-3.5 h-3.5 text-slate-500" />
                       <span>Archive</span>
                     </button>
                   )}
@@ -236,7 +236,7 @@ export const EventManagementHub: React.FC = () => {
                           deleteEvent(event.id);
                         }
                       }}
-                      className="p-1.5 rounded-lg text-slate-500 hover:text-rose-400 hover:bg-slate-800 transition-colors"
+                      className="p-2 rounded-lg text-slate-400 hover:text-rose-600 hover:bg-rose-50 transition-colors"
                       title="Delete Draft"
                     >
                       <Trash2 className="w-4 h-4" />

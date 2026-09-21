@@ -77,23 +77,23 @@ export const AnalyticsSuite: React.FC = () => {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h2 className="text-xl font-bold text-white tracking-tight flex items-center gap-2">
-            <BarChart3 className="w-5 h-5 text-indigo-400" />
+          <h2 className="text-xl font-bold text-slate-900 tracking-tight flex items-center gap-2">
+            <BarChart3 className="w-5 h-5 text-blue-600" />
             Live Event Analytics & Telemetry
           </h2>
-          <p className="text-xs text-slate-400 mt-1">
+          <p className="text-xs text-slate-500 mt-1">
             Real-time charts calculated from live participant, check-in, submission, and judging data.
           </p>
         </div>
 
         <div className="flex items-center gap-3">
-          <div className="px-3 py-1.5 rounded-xl bg-slate-900 border border-slate-800 text-xs">
-            <span className="text-slate-400">Attendance Rate: </span>
-            <strong className="text-emerald-400 font-mono">{stats.checkInPercentage}%</strong>
+          <div className="px-3 py-1.5 rounded-xl bg-blue-50 border border-blue-200 text-xs">
+            <span className="text-slate-600">Attendance Rate: </span>
+            <strong className="text-emerald-700 font-mono">{stats.checkInPercentage}%</strong>
           </div>
-          <div className="px-3 py-1.5 rounded-xl bg-slate-900 border border-slate-800 text-xs">
-            <span className="text-slate-400">Average Score: </span>
-            <strong className="text-indigo-400 font-mono">{stats.averageScore} pts</strong>
+          <div className="px-3 py-1.5 rounded-xl bg-blue-50 border border-blue-200 text-xs">
+            <span className="text-slate-600">Average Score: </span>
+            <strong className="text-blue-700 font-mono">{stats.averageScore} pts</strong>
           </div>
         </div>
       </div>
@@ -101,16 +101,16 @@ export const AnalyticsSuite: React.FC = () => {
       {/* Chart Row 1: Attendance Velocity & Track Breakdown */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
         {/* Attendance Velocity (8 cols) */}
-        <div className="lg:col-span-8 glass-panel p-6 rounded-3xl space-y-4">
+        <div className="lg:col-span-8 bg-white border border-slate-200 p-6 rounded-3xl shadow-xs space-y-4">
           <div className="flex items-center justify-between">
             <div>
-              <h3 className="font-bold text-sm text-white flex items-center gap-2">
-                <TrendingUp className="w-4 h-4 text-emerald-400" />
+              <h3 className="font-bold text-sm text-slate-900 flex items-center gap-2">
+                <TrendingUp className="w-4 h-4 text-emerald-600" />
                 Hourly Check-in Velocity & Cumulative Attendance
               </h3>
-              <p className="text-xs text-slate-400">Peak check-in surge observed between 09:00 AM and 10:30 AM.</p>
+              <p className="text-xs text-slate-500">Peak check-in surge observed between 09:00 AM and 10:30 AM.</p>
             </div>
-            <span className="text-xs font-mono text-emerald-400 font-bold">
+            <span className="text-xs font-mono text-emerald-700 font-bold">
               {stats.checkedInCount} Attendees Verified
             </span>
           </div>
@@ -120,25 +120,27 @@ export const AnalyticsSuite: React.FC = () => {
               <AreaChart data={attendanceHourlyData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
                 <defs>
                   <linearGradient id="attendanceGradient" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor="#10b981" stopOpacity={0.4} />
-                    <stop offset="95%" stopColor="#10b981" stopOpacity={0} />
+                    <stop offset="5%" stopColor="#2563eb" stopOpacity={0.3} />
+                    <stop offset="95%" stopColor="#2563eb" stopOpacity={0} />
                   </linearGradient>
                 </defs>
-                <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" />
-                <XAxis dataKey="time" stroke="#64748b" fontSize={11} />
-                <YAxis stroke="#64748b" fontSize={11} />
+                <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
+                <XAxis dataKey="time" stroke="#94a3b8" fontSize={11} />
+                <YAxis stroke="#94a3b8" fontSize={11} />
                 <Tooltip
                   contentStyle={{
-                    backgroundColor: '#0f172a',
-                    borderColor: '#334155',
+                    backgroundColor: '#ffffff',
+                    borderColor: '#cbd5e1',
                     borderRadius: '0.75rem',
                     fontSize: '0.75rem',
+                    color: '#0f172a',
+                    boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)',
                   }}
                 />
                 <Area
                   type="monotone"
                   dataKey="cumulative"
-                  stroke="#10b981"
+                  stroke="#2563eb"
                   strokeWidth={3}
                   fillOpacity={1}
                   fill="url(#attendanceGradient)"
@@ -150,9 +152,9 @@ export const AnalyticsSuite: React.FC = () => {
         </div>
 
         {/* Track Distribution Donut (4 cols) */}
-        <div className="lg:col-span-4 glass-panel p-6 rounded-3xl space-y-4">
-          <h3 className="font-bold text-sm text-white flex items-center gap-2">
-            <PieIcon className="w-4 h-4 text-indigo-400" />
+        <div className="lg:col-span-4 bg-white border border-slate-200 p-6 rounded-3xl shadow-xs space-y-4">
+          <h3 className="font-bold text-sm text-slate-900 flex items-center gap-2">
+            <PieIcon className="w-4 h-4 text-blue-600" />
             Track Distribution
           </h3>
 
@@ -174,10 +176,12 @@ export const AnalyticsSuite: React.FC = () => {
                 </Pie>
                 <Tooltip
                   contentStyle={{
-                    backgroundColor: '#0f172a',
-                    borderColor: '#334155',
+                    backgroundColor: '#ffffff',
+                    borderColor: '#cbd5e1',
                     borderRadius: '0.75rem',
                     fontSize: '0.75rem',
+                    color: '#0f172a',
+                    boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)',
                   }}
                 />
               </PieChart>
@@ -191,7 +195,7 @@ export const AnalyticsSuite: React.FC = () => {
                   className="w-2.5 h-2.5 rounded-full"
                   style={{ backgroundColor: COLORS[idx % COLORS.length] }}
                 />
-                <span className="text-slate-300 truncate">{track.name}: {track.value}</span>
+                <span className="text-slate-700 truncate">{track.name}: {track.value}</span>
               </div>
             ))}
           </div>
@@ -201,49 +205,53 @@ export const AnalyticsSuite: React.FC = () => {
       {/* Chart Row 2: Top Skills Demanded vs Score Distribution */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Top Skills Bar Chart */}
-        <div className="glass-panel p-6 rounded-3xl space-y-4">
-          <h3 className="font-bold text-sm text-white flex items-center gap-2">
-            <Users className="w-4 h-4 text-purple-400" />
+        <div className="bg-white border border-slate-200 p-6 rounded-3xl shadow-xs space-y-4">
+          <h3 className="font-bold text-sm text-slate-900 flex items-center gap-2">
+            <Users className="w-4 h-4 text-blue-600" />
             Top Participant Skill Distribution
           </h3>
           <div className="h-60 w-full">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={topSkillsData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" />
-                <XAxis dataKey="skill" stroke="#64748b" fontSize={10} />
-                <YAxis stroke="#64748b" fontSize={11} />
+                <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
+                <XAxis dataKey="skill" stroke="#94a3b8" fontSize={10} />
+                <YAxis stroke="#94a3b8" fontSize={11} />
                 <Tooltip
                   contentStyle={{
-                    backgroundColor: '#0f172a',
-                    borderColor: '#334155',
+                    backgroundColor: '#ffffff',
+                    borderColor: '#cbd5e1',
                     borderRadius: '0.75rem',
                     fontSize: '0.75rem',
+                    color: '#0f172a',
+                    boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)',
                   }}
                 />
-                <Bar dataKey="count" fill="#818cf8" radius={[6, 6, 0, 0]} name="Developers with Skill" />
+                <Bar dataKey="count" fill="#3b82f6" radius={[6, 6, 0, 0]} name="Developers with Skill" />
               </BarChart>
             </ResponsiveContainer>
           </div>
         </div>
 
         {/* Score Distribution */}
-        <div className="glass-panel p-6 rounded-3xl space-y-4">
-          <h3 className="font-bold text-sm text-white flex items-center gap-2">
-            <Award className="w-4 h-4 text-amber-400" />
+        <div className="bg-white border border-slate-200 p-6 rounded-3xl shadow-xs space-y-4">
+          <h3 className="font-bold text-sm text-slate-900 flex items-center gap-2">
+            <Award className="w-4 h-4 text-amber-500" />
             Judge Scoring Distribution (Out of 100)
           </h3>
           <div className="h-60 w-full">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={scoreBuckets} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" />
-                <XAxis dataKey="range" stroke="#64748b" fontSize={11} />
-                <YAxis stroke="#64748b" fontSize={11} />
+                <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
+                <XAxis dataKey="range" stroke="#94a3b8" fontSize={11} />
+                <YAxis stroke="#94a3b8" fontSize={11} />
                 <Tooltip
                   contentStyle={{
-                    backgroundColor: '#0f172a',
-                    borderColor: '#334155',
+                    backgroundColor: '#ffffff',
+                    borderColor: '#cbd5e1',
                     borderRadius: '0.75rem',
                     fontSize: '0.75rem',
+                    color: '#0f172a',
+                    boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)',
                   }}
                 />
                 <Bar dataKey="count" fill="#f59e0b" radius={[6, 6, 0, 0]} name="Evaluations in Range" />

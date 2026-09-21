@@ -182,7 +182,7 @@ export default function DashboardPage() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#0b1120] text-slate-100">
+    <div className="min-h-screen flex flex-col bg-[#f8fafc] text-slate-900">
       <Header activeTab={activeTab} setActiveTab={setActiveTab} />
 
       <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">

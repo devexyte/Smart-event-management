@@ -45,7 +45,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ activeTab, setActiveTab }) => 
           label: 'My Registrations',
           icon: Ticket,
           badge: userRegistrationsCount > 0 ? `${userRegistrationsCount}` : undefined,
-          badgeColor: 'bg-blue-500/20 text-blue-300',
+          badgeColor: 'bg-blue-50 text-blue-700 border border-blue-200',
         },
         { id: 'calendar', label: 'Calendar & Schedule', icon: Calendar },
         {
@@ -53,7 +53,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ activeTab, setActiveTab }) => 
           label: 'Saved & Bookmarks',
           icon: Bookmark,
           badge: userBookmarksCount > 0 ? `${userBookmarksCount}` : undefined,
-          badgeColor: 'bg-slate-800 text-slate-300',
+          badgeColor: 'bg-slate-100 text-slate-600 border border-slate-200',
         },
         { id: 'certificates', label: 'My Certificates', icon: Award },
         { id: 'hackathon-hub', label: 'Hackathon Project Hub', icon: Code2 },
@@ -69,14 +69,14 @@ export const Sidebar: React.FC<SidebarProps> = ({ activeTab, setActiveTab }) => 
           label: 'Events & Creation',
           icon: CalendarPlus,
           badge: `${events.length}`,
-          badgeColor: 'bg-emerald-500/20 text-emerald-300',
+          badgeColor: 'bg-emerald-50 text-emerald-700 border border-emerald-200',
         },
         {
           id: 'check-in',
           label: 'QR Check-In Station',
           icon: QrCode,
           badge: `${stats.checkedInAttendees}/${stats.totalRegistrations}`,
-          badgeColor: 'bg-blue-500/20 text-blue-300',
+          badgeColor: 'bg-blue-50 text-blue-700 border border-blue-200',
         },
         { id: 'volunteers', label: 'Volunteer Management', icon: UserCheck },
         { id: 'broadcast', label: 'Live Broadcast Center', icon: Radio },
@@ -93,7 +93,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ activeTab, setActiveTab }) => 
         label: 'Event Approvals Queue',
         icon: CheckSquare,
         badge: stats.pendingApprovalsCount > 0 ? `${stats.pendingApprovalsCount}` : undefined,
-        badgeColor: 'bg-amber-500/20 text-amber-300 font-bold',
+        badgeColor: 'bg-amber-50 text-amber-800 border border-amber-200 font-bold',
       },
       { id: 'master-data', label: 'Categories & Venues', icon: Building2 },
       { id: 'users', label: 'User & Account Admin', icon: Users },
@@ -107,26 +107,26 @@ export const Sidebar: React.FC<SidebarProps> = ({ activeTab, setActiveTab }) => 
     switch (currentRole) {
       case 'student':
         return {
-          badge: 'bg-blue-500/10 text-blue-400 border-blue-500/20',
-          activeItem: 'bg-blue-600 text-white font-semibold shadow-sm',
+          badge: 'bg-blue-50 text-blue-700 border-blue-200',
+          activeItem: 'bg-blue-600 text-white font-semibold shadow-xs',
           label: 'Student Portal',
         };
       case 'organizer':
         return {
-          badge: 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20',
-          activeItem: 'bg-emerald-600 text-white font-semibold shadow-sm',
+          badge: 'bg-emerald-50 text-emerald-700 border-emerald-200',
+          activeItem: 'bg-emerald-600 text-white font-semibold shadow-xs',
           label: 'Organizer Suite',
         };
       case 'admin':
         return {
-          badge: 'bg-amber-500/10 text-amber-400 border-amber-500/20',
-          activeItem: 'bg-amber-600 text-white font-semibold shadow-sm',
+          badge: 'bg-amber-50 text-amber-800 border-amber-200',
+          activeItem: 'bg-amber-600 text-white font-semibold shadow-xs',
           label: 'Principal & Admin',
         };
       default:
         return {
-          badge: 'bg-slate-700 text-slate-300 border-slate-600',
-          activeItem: 'bg-slate-700 text-white',
+          badge: 'bg-slate-100 text-slate-700 border-slate-200',
+          activeItem: 'bg-blue-600 text-white',
           label: 'Portal Mode',
         };
     }
@@ -136,10 +136,10 @@ export const Sidebar: React.FC<SidebarProps> = ({ activeTab, setActiveTab }) => 
 
   return (
     <aside className="w-full lg:w-64 shrink-0">
-      <div className="bg-[#131d31] border border-slate-800 rounded-xl p-3 sticky top-20 shadow-sm">
+      <div className="bg-white border border-slate-200 rounded-2xl p-3.5 sticky top-20 shadow-xs">
         {/* Active Role Label */}
-        <div className="px-3 py-2 mb-2 rounded-lg bg-slate-900/80 border border-slate-800/80 flex items-center justify-between">
-          <span className="text-xs font-semibold text-slate-200">
+        <div className="px-3 py-2 mb-2.5 rounded-xl bg-slate-50 border border-slate-200/80 flex items-center justify-between">
+          <span className="text-xs font-semibold text-slate-800">
             {accent.label}
           </span>
           <span className={`text-[10px] font-mono font-medium px-2 py-0.5 rounded border ${accent.badge}`}>
@@ -157,10 +157,10 @@ export const Sidebar: React.FC<SidebarProps> = ({ activeTab, setActiveTab }) => 
               <button
                 key={item.id}
                 onClick={() => setActiveTab(item.id)}
-                className={`w-full flex items-center justify-between px-3 py-2.5 rounded-lg text-xs transition-colors ${
+                className={`w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-xs transition-all ${
                   isActive
                     ? accent.activeItem
-                    : 'text-slate-300 hover:text-white hover:bg-slate-800/80'
+                    : 'text-slate-600 hover:text-blue-700 hover:bg-blue-50/60 font-medium'
                 }`}
               >
                 <div className="flex items-center gap-2.5 truncate">
@@ -170,8 +170,8 @@ export const Sidebar: React.FC<SidebarProps> = ({ activeTab, setActiveTab }) => 
 
                 {item.badge && (
                   <span
-                    className={`text-[10px] px-2 py-0.5 rounded font-mono shrink-0 ${
-                      isActive ? 'bg-black/25 text-white' : item.badgeColor || 'bg-slate-800 text-slate-300'
+                    className={`text-[10px] px-2 py-0.5 rounded-md font-mono shrink-0 ${
+                      isActive ? 'bg-white/20 text-white' : item.badgeColor || 'bg-slate-100 text-slate-600'
                     }`}
                   >
                     {item.badge}
@@ -183,14 +183,14 @@ export const Sidebar: React.FC<SidebarProps> = ({ activeTab, setActiveTab }) => 
         </nav>
 
         {/* Quick Campus Info / Stats Pill */}
-        <div className="mt-4 pt-3 border-t border-slate-800/80 px-2 pb-1">
-          <div className="flex items-center justify-between text-[11px] text-slate-400 mb-1">
+        <div className="mt-4 pt-3 border-t border-slate-100 px-2 pb-1">
+          <div className="flex items-center justify-between text-[11px] text-slate-500 mb-1">
             <span>Published Events</span>
-            <span className="font-semibold text-slate-200">{stats.publishedEvents}</span>
+            <span className="font-semibold text-slate-800">{stats.publishedEvents}</span>
           </div>
-          <div className="flex items-center justify-between text-[11px] text-slate-400">
+          <div className="flex items-center justify-between text-[11px] text-slate-500">
             <span>Overall Check-in</span>
-            <span className="font-semibold text-emerald-400">{stats.checkInPercentage}%</span>
+            <span className="font-semibold text-emerald-600">{stats.checkInPercentage}%</span>
           </div>
         </div>
       </div>

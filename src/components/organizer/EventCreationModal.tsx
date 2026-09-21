@@ -121,21 +121,21 @@ export const EventCreationModal: React.FC<EventCreationModalProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm overflow-y-auto">
-      <div className="bg-[#131d31] border border-slate-700 rounded-2xl max-w-3xl w-full max-h-[92vh] flex flex-col shadow-2xl overflow-hidden my-6">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/50 backdrop-blur-xs overflow-y-auto">
+      <div className="bg-white border border-slate-200 rounded-2xl max-w-3xl w-full max-h-[92vh] flex flex-col shadow-2xl overflow-hidden my-6">
         {/* Header */}
-        <div className="flex items-center justify-between p-5 border-b border-slate-800 shrink-0">
+        <div className="flex items-center justify-between p-5 border-b border-slate-100 shrink-0 bg-white">
           <div>
-            <h2 className="text-lg font-bold text-white">
+            <h2 className="text-lg font-bold text-slate-900">
               {isEditing ? 'Modify Event Details (FR5)' : 'Create New Campus Event (FR3)'}
             </h2>
-            <p className="text-xs text-slate-400 mt-0.5">
+            <p className="text-xs text-slate-500 mt-0.5">
               Draft your event specs, set capacity quotas, assign venues, and define session timelines.
             </p>
           </div>
           <button
             onClick={onClose}
-            className="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800"
+            className="p-1.5 rounded-lg text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition-colors"
           >
             <X className="w-5 h-5" />
           </button>
@@ -146,22 +146,22 @@ export const EventCreationModal: React.FC<EventCreationModalProps> = ({
           {/* Title & Category */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
             <div className="sm:col-span-2 space-y-1.5">
-              <label className="font-semibold text-slate-200">Event Title *</label>
+              <label className="font-semibold text-slate-700">Event Title *</label>
               <input
                 type="text"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
                 placeholder="e.g. Annual Cloud Architecture Masterclass"
-                className="w-full p-2.5 rounded-xl bg-slate-900 border border-slate-700 text-slate-200 text-xs focus:outline-none focus:border-blue-500"
+                className="w-full p-2.5 rounded-xl bg-white border border-slate-300 text-slate-900 text-xs placeholder:text-slate-400 focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600"
               />
             </div>
 
             <div className="space-y-1.5">
-              <label className="font-semibold text-slate-200">Category *</label>
+              <label className="font-semibold text-slate-700">Category *</label>
               <select
                 value={category}
                 onChange={(e) => setCategory(e.target.value as EventCategory)}
-                className="w-full p-2.5 rounded-xl bg-slate-900 border border-slate-700 text-slate-200 text-xs focus:outline-none focus:border-blue-500"
+                className="w-full p-2.5 rounded-xl bg-white border border-slate-300 text-slate-800 text-xs focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600"
               >
                 {categories.map((c) => (
                   <option key={c.id} value={c.name}>
@@ -174,24 +174,24 @@ export const EventCreationModal: React.FC<EventCreationModalProps> = ({
 
           {/* Description */}
           <div className="space-y-1.5">
-            <label className="font-semibold text-slate-200">Event Description *</label>
+            <label className="font-semibold text-slate-700">Event Description *</label>
             <textarea
               rows={3}
               value={description}
               onChange={(e) => setDescription(e.target.value)}
               placeholder="Outline objectives, syllabus, target audience, and expected takeaways..."
-              className="w-full p-2.5 rounded-xl bg-slate-900 border border-slate-700 text-slate-200 text-xs focus:outline-none focus:border-blue-500"
+              className="w-full p-2.5 rounded-xl bg-white border border-slate-300 text-slate-900 text-xs placeholder:text-slate-400 focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600"
             />
           </div>
 
           {/* Venue & Capacity & Pricing */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
             <div className="space-y-1.5">
-              <label className="font-semibold text-slate-200">Assigned Venue *</label>
+              <label className="font-semibold text-slate-700">Assigned Venue *</label>
               <select
                 value={venueId}
                 onChange={(e) => setVenueId(e.target.value)}
-                className="w-full p-2.5 rounded-xl bg-slate-900 border border-slate-700 text-slate-200 text-xs focus:outline-none focus:border-blue-500"
+                className="w-full p-2.5 rounded-xl bg-white border border-slate-300 text-slate-800 text-xs focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600"
               >
                 {venues.map((v) => (
                   <option key={v.id} value={v.id}>
@@ -202,22 +202,22 @@ export const EventCreationModal: React.FC<EventCreationModalProps> = ({
             </div>
 
             <div className="space-y-1.5">
-              <label className="font-semibold text-slate-200">Maximum Capacity *</label>
+              <label className="font-semibold text-slate-700">Maximum Capacity *</label>
               <input
                 type="number"
                 value={capacity}
                 onChange={(e) => setCapacity(Number(e.target.value))}
-                className="w-full p-2.5 rounded-xl bg-slate-900 border border-slate-700 text-slate-200 text-xs focus:outline-none focus:border-blue-500"
+                className="w-full p-2.5 rounded-xl bg-white border border-slate-300 text-slate-900 text-xs focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600"
               />
             </div>
 
             <div className="space-y-1.5">
-              <label className="font-semibold text-slate-200">Entry Fee (₹, 0 = Free) *</label>
+              <label className="font-semibold text-slate-700">Entry Fee (₹, 0 = Free) *</label>
               <input
                 type="number"
                 value={price}
                 onChange={(e) => setPrice(Number(e.target.value))}
-                className="w-full p-2.5 rounded-xl bg-slate-900 border border-slate-700 text-slate-200 text-xs focus:outline-none focus:border-blue-500"
+                className="w-full p-2.5 rounded-xl bg-white border border-slate-300 text-slate-900 text-xs focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600"
               />
             </div>
           </div>
@@ -225,32 +225,32 @@ export const EventCreationModal: React.FC<EventCreationModalProps> = ({
           {/* Dates & Deadlines */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
             <div className="space-y-1.5">
-              <label className="font-semibold text-slate-200">Event Start Date</label>
+              <label className="font-semibold text-slate-700">Event Start Date</label>
               <input
                 type="date"
                 value={startDate}
                 onChange={(e) => setStartDate(e.target.value)}
-                className="w-full p-2.5 rounded-xl bg-slate-900 border border-slate-700 text-slate-200 text-xs focus:outline-none focus:border-blue-500"
+                className="w-full p-2.5 rounded-xl bg-white border border-slate-300 text-slate-800 text-xs focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600"
               />
             </div>
 
             <div className="space-y-1.5">
-              <label className="font-semibold text-slate-200">Event End Date</label>
+              <label className="font-semibold text-slate-700">Event End Date</label>
               <input
                 type="date"
                 value={endDate}
                 onChange={(e) => setEndDate(e.target.value)}
-                className="w-full p-2.5 rounded-xl bg-slate-900 border border-slate-700 text-slate-200 text-xs focus:outline-none focus:border-blue-500"
+                className="w-full p-2.5 rounded-xl bg-white border border-slate-300 text-slate-800 text-xs focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600"
               />
             </div>
 
             <div className="space-y-1.5">
-              <label className="font-semibold text-slate-200">Registration Deadline</label>
+              <label className="font-semibold text-slate-700">Registration Deadline</label>
               <input
                 type="date"
                 value={deadline}
                 onChange={(e) => setDeadline(e.target.value)}
-                className="w-full p-2.5 rounded-xl bg-slate-900 border border-slate-700 text-slate-200 text-xs focus:outline-none focus:border-blue-500"
+                className="w-full p-2.5 rounded-xl bg-white border border-slate-300 text-slate-800 text-xs focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600"
               />
             </div>
           </div>
@@ -258,38 +258,38 @@ export const EventCreationModal: React.FC<EventCreationModalProps> = ({
           {/* Banner URL & Tags */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div className="space-y-1.5">
-              <label className="font-semibold text-slate-200">Banner Image URL</label>
+              <label className="font-semibold text-slate-700">Banner Image URL</label>
               <input
                 type="text"
                 value={bannerImage}
                 onChange={(e) => setBannerImage(e.target.value)}
                 placeholder="https://..."
-                className="w-full p-2.5 rounded-xl bg-slate-900 border border-slate-700 text-slate-200 text-xs focus:outline-none focus:border-blue-500"
+                className="w-full p-2.5 rounded-xl bg-white border border-slate-300 text-slate-900 text-xs focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600"
               />
             </div>
 
             <div className="space-y-1.5">
-              <label className="font-semibold text-slate-200">Tags (comma separated)</label>
+              <label className="font-semibold text-slate-700">Tags (comma separated)</label>
               <input
                 type="text"
                 value={tagsInput}
                 onChange={(e) => setTagsInput(e.target.value)}
                 placeholder="Workshop, Hands-on, AI"
-                className="w-full p-2.5 rounded-xl bg-slate-900 border border-slate-700 text-slate-200 text-xs focus:outline-none focus:border-blue-500"
+                className="w-full p-2.5 rounded-xl bg-white border border-slate-300 text-slate-900 text-xs focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600"
               />
             </div>
           </div>
 
           {/* Schedule Timeline Builder (FR11) */}
-          <div className="space-y-2 pt-2 border-t border-slate-800">
+          <div className="space-y-2 pt-4 border-t border-slate-100">
             <div className="flex items-center justify-between">
-              <label className="font-semibold text-slate-200">
+              <label className="font-semibold text-slate-800">
                 Event Agenda & Session Breakdown (FR11)
               </label>
               <button
                 type="button"
                 onClick={handleAddScheduleItem}
-                className="text-blue-400 hover:text-blue-300 flex items-center gap-1 font-medium"
+                className="text-blue-600 hover:text-blue-700 flex items-center gap-1 font-semibold text-xs transition-colors"
               >
                 <Plus className="w-3.5 h-3.5" />
                 <span>Add Session</span>
@@ -300,7 +300,7 @@ export const EventCreationModal: React.FC<EventCreationModalProps> = ({
               {scheduleItems.map((item, idx) => (
                 <div
                   key={item.id || idx}
-                  className="p-3 bg-slate-900/80 border border-slate-800 rounded-xl grid grid-cols-1 sm:grid-cols-12 gap-2 items-center"
+                  className="p-3 bg-slate-50 border border-slate-200 rounded-xl grid grid-cols-1 sm:grid-cols-12 gap-2 items-center"
                 >
                   <div className="sm:col-span-3">
                     <input
@@ -308,7 +308,7 @@ export const EventCreationModal: React.FC<EventCreationModalProps> = ({
                       value={item.time}
                       onChange={(e) => handleScheduleChange(item.id, 'time', e.target.value)}
                       placeholder="e.g. 10:00 AM"
-                      className="w-full p-1.5 rounded-lg bg-slate-950 border border-slate-700 text-slate-200 text-xs"
+                      className="w-full p-1.5 rounded-lg bg-white border border-slate-300 text-slate-800 text-xs focus:outline-none focus:border-blue-600"
                     />
                   </div>
 
@@ -318,7 +318,7 @@ export const EventCreationModal: React.FC<EventCreationModalProps> = ({
                       value={item.title}
                       onChange={(e) => handleScheduleChange(item.id, 'title', e.target.value)}
                       placeholder="Session Title"
-                      className="w-full p-1.5 rounded-lg bg-slate-950 border border-slate-700 text-slate-200 text-xs"
+                      className="w-full p-1.5 rounded-lg bg-white border border-slate-300 text-slate-800 text-xs focus:outline-none focus:border-blue-600"
                     />
                   </div>
 
@@ -328,7 +328,7 @@ export const EventCreationModal: React.FC<EventCreationModalProps> = ({
                       value={item.room || ''}
                       onChange={(e) => handleScheduleChange(item.id, 'room', e.target.value)}
                       placeholder="Room / Stage"
-                      className="w-full p-1.5 rounded-lg bg-slate-950 border border-slate-700 text-slate-200 text-xs"
+                      className="w-full p-1.5 rounded-lg bg-white border border-slate-300 text-slate-800 text-xs focus:outline-none focus:border-blue-600"
                     />
                   </div>
 
@@ -336,7 +336,7 @@ export const EventCreationModal: React.FC<EventCreationModalProps> = ({
                     <button
                       type="button"
                       onClick={() => handleRemoveScheduleItem(item.id)}
-                      className="p-1.5 text-slate-500 hover:text-rose-400"
+                      className="p-1.5 text-slate-400 hover:text-rose-600 transition-colors"
                     >
                       <Trash2 className="w-4 h-4" />
                     </button>
@@ -348,11 +348,11 @@ export const EventCreationModal: React.FC<EventCreationModalProps> = ({
         </div>
 
         {/* Modal Footer */}
-        <div className="p-4 border-t border-slate-800 bg-[#0d1527] flex items-center justify-between gap-3 shrink-0">
+        <div className="p-4 border-t border-slate-100 bg-slate-50 flex items-center justify-between gap-3 shrink-0">
           <button
             type="button"
             onClick={onClose}
-            className="px-4 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-medium"
+            className="px-4 py-2 rounded-lg bg-slate-200 hover:bg-slate-300 text-slate-700 text-xs font-medium transition-colors"
           >
             Cancel
           </button>
@@ -361,14 +361,14 @@ export const EventCreationModal: React.FC<EventCreationModalProps> = ({
             <button
               type="button"
               onClick={() => handleSubmit(false)}
-              className="px-4 py-2 rounded-lg bg-slate-700 hover:bg-slate-600 text-white text-xs font-medium transition-colors"
+              className="px-4 py-2 rounded-lg bg-white border border-slate-300 hover:bg-slate-100 text-slate-700 text-xs font-medium transition-colors shadow-2xs"
             >
               Save as Draft
             </button>
             <button
               type="button"
               onClick={() => handleSubmit(true)}
-              className="px-5 py-2 rounded-lg bg-blue-600 hover:bg-blue-500 text-white text-xs font-semibold shadow-sm transition-colors flex items-center gap-1.5"
+              className="px-5 py-2 rounded-lg bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold shadow-xs transition-colors flex items-center gap-1.5"
             >
               <CheckCircle2 className="w-3.5 h-3.5" />
               <span>{isEditing ? 'Save & Submit' : 'Submit for Admin Approval (FR4)'}</span>

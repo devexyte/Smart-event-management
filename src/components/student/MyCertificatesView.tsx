@@ -16,27 +16,27 @@ export const MyCertificatesView: React.FC = () => {
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div className="bg-[#131d31] border border-slate-800 rounded-2xl p-6 shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <div className="bg-white border border-slate-200 rounded-2xl p-6 shadow-xs flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-xl sm:text-2xl font-bold text-white tracking-tight flex items-center gap-2.5">
-            <Award className="w-6 h-6 text-emerald-400" />
+          <h1 className="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight flex items-center gap-2.5">
+            <Award className="w-6 h-6 text-blue-600" />
             <span>My Verified Digital Certificates (FR17)</span>
           </h1>
-          <p className="text-xs sm:text-sm text-slate-400 mt-1">
+          <p className="text-xs sm:text-sm text-slate-500 mt-1">
             Official verifiable credentials issued by Ramnarain Ruia Autonomous College for attended and completed campus events.
           </p>
         </div>
 
-        <span className="text-xs text-slate-400 font-mono">
+        <span className="text-xs text-slate-500 font-mono bg-slate-100 px-3 py-1.5 rounded-lg border border-slate-200">
           {studentCerts.length} Verified Certificate{studentCerts.length === 1 ? '' : 's'}
         </span>
       </div>
 
       {studentCerts.length === 0 ? (
-        <div className="bg-[#131d31] border border-slate-800 rounded-2xl p-12 text-center space-y-3">
-          <Award className="w-12 h-12 text-slate-600 mx-auto" />
-          <h3 className="text-base font-semibold text-slate-300">No certificates earned yet</h3>
-          <p className="text-xs text-slate-400 max-w-sm mx-auto">
+        <div className="bg-white border border-slate-200 rounded-2xl p-12 text-center space-y-3">
+          <Award className="w-12 h-12 text-slate-300 mx-auto" />
+          <h3 className="text-base font-semibold text-slate-800">No certificates earned yet</h3>
+          <p className="text-xs text-slate-500 max-w-sm mx-auto">
             Certificates are issued automatically upon gate check-in and completion of eligible campus events and workshops.
           </p>
         </div>
@@ -45,49 +45,49 @@ export const MyCertificatesView: React.FC = () => {
           {studentCerts.map((cert) => (
             <div
               key={cert.id}
-              className="bg-[#131d31] border border-slate-800 rounded-xl p-5 shadow-sm space-y-4 hover:border-slate-700 transition-colors flex flex-col justify-between"
+              className="bg-white border border-slate-200 rounded-xl p-5 shadow-xs space-y-4 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between"
             >
               <div className="space-y-3">
                 <div className="flex items-center justify-between">
-                  <span className="text-[11px] font-mono font-bold text-amber-400 px-2.5 py-0.5 rounded bg-amber-500/10 border border-amber-500/20">
+                  <span className="text-[11px] font-mono font-bold text-blue-700 px-2.5 py-0.5 rounded bg-blue-50 border border-blue-200">
                     {cert.certificateNumber}
                   </span>
-                  <span className="text-[11px] font-semibold text-emerald-400 flex items-center gap-1">
+                  <span className="text-[11px] font-semibold text-emerald-700 bg-emerald-50 px-2.5 py-0.5 rounded-md border border-emerald-200 flex items-center gap-1">
                     <ShieldCheck className="w-3.5 h-3.5" />
                     <span>Verified Credential</span>
                   </span>
                 </div>
 
                 <div>
-                  <h3 className="text-base font-bold text-white leading-snug">
+                  <h3 className="text-base font-bold text-slate-900 leading-snug">
                     {cert.eventTitle}
                   </h3>
-                  <p className="text-xs text-slate-400 mt-1">
-                    Issued to: <strong className="text-slate-200">{cert.studentName}</strong> (ID: {cert.studentIdNumber})
+                  <p className="text-xs text-slate-500 mt-1">
+                    Issued to: <strong className="text-slate-800">{cert.studentName}</strong> (ID: {cert.studentIdNumber})
                   </p>
                 </div>
 
-                <div className="p-3 bg-slate-900/60 rounded-lg border border-slate-800/80 text-xs text-slate-400 space-y-1">
+                <div className="p-3 bg-slate-50 rounded-lg border border-slate-200 text-xs text-slate-600 space-y-1">
                   <div className="flex items-center justify-between">
-                    <span>Issued By:</span>
-                    <span className="text-slate-200 font-semibold">{cert.issuerName}</span>
+                    <span className="text-slate-500">Issued By:</span>
+                    <span className="text-slate-800 font-semibold">{cert.issuerName}</span>
                   </div>
                   <div className="flex items-center justify-between">
-                    <span>Date of Completion:</span>
-                    <span className="text-slate-200">{cert.completionDate}</span>
+                    <span className="text-slate-500">Date of Completion:</span>
+                    <span className="text-slate-800">{cert.completionDate}</span>
                   </div>
-                  <div className="flex items-center justify-between font-mono text-[10px] text-slate-500 pt-1 border-t border-slate-800">
+                  <div className="flex items-center justify-between font-mono text-[10px] text-slate-500 pt-1.5 border-t border-slate-200">
                     <span>Verification Key:</span>
-                    <span>{cert.verificationCode}</span>
+                    <span className="text-slate-700 font-semibold">{cert.verificationCode}</span>
                   </div>
                 </div>
               </div>
 
-              <div className="pt-2 border-t border-slate-800/80 flex items-center justify-between">
-                <span className="text-[11px] text-slate-500">Official Institutional PDF</span>
+              <div className="pt-3 border-t border-slate-100 flex items-center justify-between">
+                <span className="text-[11px] text-slate-400">Official Institutional PDF</span>
                 <button
                   onClick={() => setActiveCert(cert)}
-                  className="px-3.5 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-semibold shadow-sm transition-colors flex items-center gap-1.5"
+                  className="px-3.5 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold shadow-xs transition-colors flex items-center gap-1.5"
                 >
                   <Printer className="w-3.5 h-3.5" />
                   <span>View & Print</span>

@@ -62,7 +62,7 @@ export const Header: React.FC<HeaderProps> = () => {
   const unreadCount = notifications.filter((n) => !n.read).length;
 
   return (
-    <header className="sticky top-0 z-40 w-full border-b border-slate-800 bg-[#0d1527]/95 backdrop-blur-md">
+    <header className="sticky top-0 z-40 w-full border-b border-slate-200 bg-white/95 backdrop-blur-md shadow-xs">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 gap-4">
           {/* Brand & Institution Header */}
@@ -73,14 +73,14 @@ export const Header: React.FC<HeaderProps> = () => {
               </div>
               <div>
                 <div className="flex items-center gap-2">
-                  <span className="font-bold text-base tracking-tight text-white">
+                  <span className="font-bold text-base tracking-tight text-slate-900">
                     CampusFlow
                   </span>
-                  <span className="text-[10px] font-semibold px-2 py-0.5 rounded bg-blue-500/10 text-blue-400 border border-blue-500/20">
+                  <span className="text-[10px] font-semibold px-2 py-0.5 rounded bg-blue-50 text-blue-700 border border-blue-200">
                     Smart Event Portal
                   </span>
                 </div>
-                <p className="text-[11px] text-slate-400 hidden sm:block">
+                <p className="text-[11px] text-slate-500 hidden sm:block">
                   Ramnarain Ruia Autonomous College • Matunga, Mumbai
                 </p>
               </div>
@@ -88,11 +88,10 @@ export const Header: React.FC<HeaderProps> = () => {
           </div>
 
           {/* Center: Role Switcher Segmented Control (FR1 & FR2) */}
-          <div className="flex items-center bg-slate-900 border border-slate-800 rounded-lg p-1">
+          <div className="flex items-center bg-slate-100 border border-slate-200 rounded-lg p-1">
             <button
               onClick={() => {
                 setRole('student');
-                // If current user is not a student, pick a default student
                 if (currentUser.role !== 'student') {
                   const student = users.find((u) => u.role === 'student');
                   if (student) switchUser(student.id);
@@ -100,8 +99,8 @@ export const Header: React.FC<HeaderProps> = () => {
               }}
               className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-medium transition-colors ${
                 currentRole === 'student'
-                  ? 'bg-blue-600 text-white shadow-sm font-semibold'
-                  : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800'
+                  ? 'bg-blue-600 text-white shadow-xs font-semibold'
+                  : 'text-slate-600 hover:text-slate-900 hover:bg-slate-200/60'
               }`}
             >
               <GraduationCap className="w-3.5 h-3.5" />
@@ -111,7 +110,6 @@ export const Header: React.FC<HeaderProps> = () => {
             <button
               onClick={() => {
                 setRole('organizer');
-                // If current user is not an organizer, pick a default organizer
                 if (currentUser.role !== 'organizer') {
                   const organizer = users.find((u) => u.role === 'organizer');
                   if (organizer) switchUser(organizer.id);
@@ -119,8 +117,8 @@ export const Header: React.FC<HeaderProps> = () => {
               }}
               className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-medium transition-colors ${
                 currentRole === 'organizer'
-                  ? 'bg-emerald-600 text-white shadow-sm font-semibold'
-                  : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800'
+                  ? 'bg-emerald-600 text-white shadow-xs font-semibold'
+                  : 'text-slate-600 hover:text-slate-900 hover:bg-slate-200/60'
               }`}
             >
               <CalendarCheck className="w-3.5 h-3.5" />
@@ -130,7 +128,6 @@ export const Header: React.FC<HeaderProps> = () => {
             <button
               onClick={() => {
                 setRole('admin');
-                // If current user is not an admin, pick default admin
                 if (currentUser.role !== 'admin') {
                   const admin = users.find((u) => u.role === 'admin');
                   if (admin) switchUser(admin.id);
@@ -138,14 +135,14 @@ export const Header: React.FC<HeaderProps> = () => {
               }}
               className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-medium transition-colors ${
                 currentRole === 'admin'
-                  ? 'bg-amber-600 text-white shadow-sm font-semibold'
-                  : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800'
+                  ? 'bg-amber-600 text-white shadow-xs font-semibold'
+                  : 'text-slate-600 hover:text-slate-900 hover:bg-slate-200/60'
               }`}
             >
               <Building2 className="w-3.5 h-3.5" />
               <span>Admin</span>
               {stats.pendingApprovalsCount > 0 && (
-                <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse" />
+                <span className="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse" />
               )}
             </button>
           </div>
@@ -156,7 +153,7 @@ export const Header: React.FC<HeaderProps> = () => {
             <div className="relative" ref={notifRef}>
               <button
                 onClick={() => setShowNotifications(!showNotifications)}
-                className="relative p-2 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-300 transition-colors"
+                className="relative p-2 rounded-lg bg-white hover:bg-slate-50 border border-slate-200 text-slate-700 shadow-xs transition-colors"
                 title="Notifications"
                 aria-label="Notifications"
               >
@@ -169,24 +166,24 @@ export const Header: React.FC<HeaderProps> = () => {
               </button>
 
               {showNotifications && (
-                <div className="absolute right-0 mt-2 w-80 sm:w-96 bg-[#131d31] border border-slate-700 rounded-xl shadow-2xl py-2 z-50">
-                  <div className="flex items-center justify-between px-4 py-2 border-b border-slate-800">
-                    <span className="text-xs font-semibold text-slate-200 uppercase tracking-wider">
+                <div className="absolute right-0 mt-2 w-80 sm:w-96 bg-white border border-slate-200 rounded-2xl shadow-xl py-2 z-50">
+                  <div className="flex items-center justify-between px-4 py-2 border-b border-slate-100">
+                    <span className="text-xs font-semibold text-slate-800 uppercase tracking-wider">
                       Notifications ({notifications.length})
                     </span>
                     {unreadCount > 0 && (
                       <button
                         onClick={markAllNotificationsAsRead}
-                        className="text-[11px] text-blue-400 hover:text-blue-300 font-medium"
+                        className="text-[11px] text-blue-600 hover:text-blue-700 font-medium"
                       >
                         Mark all as read
                       </button>
                     )}
                   </div>
 
-                  <div className="max-h-72 overflow-y-auto divide-y divide-slate-800/60">
+                  <div className="max-h-72 overflow-y-auto divide-y divide-slate-100">
                     {notifications.length === 0 ? (
-                      <div className="p-4 text-center text-xs text-slate-400">
+                      <div className="p-4 text-center text-xs text-slate-500">
                         No notifications at this time.
                       </div>
                     ) : (
@@ -194,20 +191,20 @@ export const Header: React.FC<HeaderProps> = () => {
                         <div
                           key={notif.id}
                           onClick={() => markNotificationAsRead(notif.id)}
-                          className={`p-3 text-xs cursor-pointer hover:bg-slate-800/60 transition-colors ${
-                            !notif.read ? 'bg-blue-950/20' : ''
+                          className={`p-3 text-xs cursor-pointer hover:bg-slate-50 transition-colors ${
+                            !notif.read ? 'bg-blue-50/50' : ''
                           }`}
                         >
                           <div className="flex items-start justify-between gap-2">
-                            <p className="font-semibold text-slate-200">{notif.title}</p>
+                            <p className="font-semibold text-slate-900">{notif.title}</p>
                             {!notif.read && (
-                              <span className="w-2 h-2 rounded-full bg-blue-400 shrink-0 mt-1" />
+                              <span className="w-2 h-2 rounded-full bg-blue-600 shrink-0 mt-1" />
                             )}
                           </div>
-                          <p className="text-[11px] text-slate-400 mt-1 leading-relaxed">
+                          <p className="text-[11px] text-slate-600 mt-1 leading-relaxed">
                             {notif.message}
                           </p>
-                          <span className="text-[10px] text-slate-500 block mt-1.5 font-mono">
+                          <span className="text-[10px] text-slate-400 block mt-1.5 font-mono">
                             {formatTimeAgo(notif.timestamp)}
                           </span>
                         </div>
@@ -222,19 +219,19 @@ export const Header: React.FC<HeaderProps> = () => {
             <div className="relative" ref={personaRef}>
               <button
                 onClick={() => setShowPersonaMenu(!showPersonaMenu)}
-                className="flex items-center gap-2 px-2.5 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-800 text-xs text-slate-200 transition-colors"
+                className="flex items-center gap-2 px-2.5 py-1.5 rounded-lg bg-white hover:bg-slate-50 border border-slate-200 text-xs text-slate-800 shadow-xs transition-colors"
                 title="Switch active user profile"
               >
                 <img
                   src={currentUser.avatar}
                   alt={currentUser.name}
-                  className="w-5 h-5 rounded-full object-cover ring-1 ring-slate-700"
+                  className="w-5 h-5 rounded-full object-cover ring-1 ring-slate-200"
                 />
                 <div className="text-left hidden md:block">
-                  <p className="font-semibold text-slate-200 truncate max-w-[120px]">
+                  <p className="font-semibold text-slate-800 truncate max-w-[120px]">
                     {currentUser.name}
                   </p>
-                  <p className="text-[10px] text-slate-400 capitalize">
+                  <p className="text-[10px] text-slate-500 capitalize">
                     {currentUser.role}
                   </p>
                 </div>
@@ -242,8 +239,8 @@ export const Header: React.FC<HeaderProps> = () => {
               </button>
 
               {showPersonaMenu && (
-                <div className="absolute right-0 mt-2 w-72 bg-[#131d31] border border-slate-700 rounded-xl shadow-2xl py-2 z-50">
-                  <div className="px-3 py-1.5 border-b border-slate-800 text-[11px] font-semibold text-slate-400 uppercase tracking-wider">
+                <div className="absolute right-0 mt-2 w-72 bg-white border border-slate-200 rounded-2xl shadow-xl py-2 z-50">
+                  <div className="px-3 py-1.5 border-b border-slate-100 text-[11px] font-semibold text-slate-500 uppercase tracking-wider">
                     Switch Active Persona (Testing)
                   </div>
 
@@ -255,10 +252,10 @@ export const Header: React.FC<HeaderProps> = () => {
                           switchUser(user.id);
                           setShowPersonaMenu(false);
                         }}
-                        className={`w-full flex items-center gap-3 px-3 py-2 text-left text-xs hover:bg-slate-800 transition-colors ${
+                        className={`w-full flex items-center gap-3 px-3 py-2 text-left text-xs hover:bg-slate-50 transition-colors ${
                           user.id === currentUser.id
-                            ? 'bg-blue-600/20 text-blue-300 font-semibold'
-                            : 'text-slate-300'
+                            ? 'bg-blue-50 text-blue-900 font-semibold'
+                            : 'text-slate-700'
                         }`}
                       >
                         <img
@@ -267,21 +264,21 @@ export const Header: React.FC<HeaderProps> = () => {
                           className="w-7 h-7 rounded-full object-cover shrink-0"
                         />
                         <div className="flex-1 min-w-0">
-                          <p className="truncate font-semibold text-slate-200">{user.name}</p>
-                          <p className="text-[10px] text-slate-400 truncate">
+                          <p className="truncate font-semibold text-slate-900">{user.name}</p>
+                          <p className="text-[10px] text-slate-500 truncate">
                             {user.role.toUpperCase()} • {user.department}
                           </p>
                         </div>
                         {user.id === currentUser.id && (
-                          <CheckCircle2 className="w-3.5 h-3.5 text-blue-400 shrink-0" />
+                          <CheckCircle2 className="w-3.5 h-3.5 text-blue-600 shrink-0" />
                         )}
                       </button>
                     ))}
                   </div>
 
-                  <div className="p-2 border-t border-slate-800 mt-1 bg-slate-900/50">
-                    <p className="text-[10px] text-slate-400 px-1">
-                      Current student ID: <span className="font-mono text-slate-300">{currentUser.studentIdNumber || 'N/A'}</span>
+                  <div className="p-2 border-t border-slate-100 mt-1 bg-slate-50/50">
+                    <p className="text-[10px] text-slate-500 px-1">
+                      Current student ID: <span className="font-mono text-slate-700 font-semibold">{currentUser.studentIdNumber || 'N/A'}</span>
                     </p>
                   </div>
                 </div>
@@ -295,7 +292,7 @@ export const Header: React.FC<HeaderProps> = () => {
                   resetToDemoData();
                 }
               }}
-              className="p-2 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-400 hover:text-rose-400 transition-colors"
+              className="p-2 rounded-lg bg-white hover:bg-slate-50 border border-slate-200 text-slate-500 hover:text-rose-600 shadow-xs transition-colors"
               title="Reset to default dataset"
             >
               <RotateCcw className="w-3.5 h-3.5" />

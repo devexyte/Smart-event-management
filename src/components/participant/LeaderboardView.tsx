@@ -47,20 +47,20 @@ export const LeaderboardView: React.FC = () => {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <div className="flex items-center gap-2 text-amber-400 text-xs font-semibold uppercase tracking-wider mb-1">
+          <div className="flex items-center gap-2 text-blue-600 text-xs font-semibold uppercase tracking-wider mb-1">
             <Trophy className="w-4 h-4" />
             <span>Real-Time Scoring Engine</span>
           </div>
-          <h2 className="text-xl sm:text-2xl font-bold text-white tracking-tight">
+          <h2 className="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight">
             Live Hackathon Leaderboard
           </h2>
-          <p className="text-xs text-slate-400 mt-1">
+          <p className="text-xs text-slate-500 mt-1">
             Rankings recalculate instantly when judges submit rubric scores.
           </p>
         </div>
 
-        <span className="text-xs px-3 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-300 font-mono self-start flex items-center gap-1.5">
-          <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
+        <span className="text-xs px-3 py-1.5 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700 font-mono self-start flex items-center gap-1.5">
+          <span className="w-2 h-2 rounded-full bg-emerald-500 animate-ping" />
           Live Aggregation
         </span>
       </div>
@@ -69,54 +69,54 @@ export const LeaderboardView: React.FC = () => {
       {topThree.length >= 3 && selectedTrack === 'all' && !searchQuery && (
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-2 items-end">
           {/* #2 Silver (Left) */}
-          <div className="glass-panel p-6 rounded-3xl border-slate-400/30 bg-gradient-to-b from-slate-800/60 to-slate-950 order-2 md:order-1 text-center relative overflow-hidden shadow-xl">
-            <div className="w-12 h-12 rounded-2xl bg-slate-300/10 border border-slate-300/30 flex items-center justify-center mx-auto mb-3 text-slate-200">
-              <Medal className="w-6 h-6 text-slate-300" />
+          <div className="bg-white border-2 border-slate-300 p-6 rounded-3xl order-2 md:order-1 text-center relative overflow-hidden shadow-sm">
+            <div className="w-12 h-12 rounded-2xl bg-slate-100 border border-slate-200 flex items-center justify-center mx-auto mb-3 text-slate-600">
+              <Medal className="w-6 h-6 text-slate-600" />
             </div>
-            <span className="text-xs font-bold font-mono px-2.5 py-0.5 rounded-full bg-slate-400/20 text-slate-300 border border-slate-400/30 inline-block mb-2">
+            <span className="text-xs font-bold font-mono px-2.5 py-0.5 rounded-full bg-slate-100 text-slate-700 border border-slate-200 inline-block mb-2">
               #2 SILVER
             </span>
-            <h3 className="font-bold text-base text-white truncate">{topThree[1].name}</h3>
-            <p className="text-[11px] text-slate-400 truncate mt-0.5">{topThree[1].tagline}</p>
-            <div className="mt-4 pt-3 border-t border-slate-800 flex items-center justify-between text-xs">
-              <span className="text-slate-400">{topThree[1].totalEvaluations} reviews</span>
-              <span className="text-xl font-bold font-mono text-slate-100">
+            <h3 className="font-bold text-base text-slate-900 truncate">{topThree[1].name}</h3>
+            <p className="text-[11px] text-slate-500 truncate mt-0.5">{topThree[1].tagline}</p>
+            <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs">
+              <span className="text-slate-500">{topThree[1].totalEvaluations} reviews</span>
+              <span className="text-xl font-bold font-mono text-slate-800">
                 {topThree[1].aggregateScore} pts
               </span>
             </div>
           </div>
 
           {/* #1 Gold (Center - Taller) */}
-          <div className="glass-panel p-7 rounded-3xl border-amber-500/40 bg-gradient-to-b from-amber-950/30 via-slate-900/90 to-slate-950 order-1 md:order-2 text-center relative overflow-hidden shadow-2xl scale-[1.03] ring-1 ring-amber-500/30">
-            <div className="w-14 h-14 rounded-2xl bg-amber-500/20 border border-amber-500/40 flex items-center justify-center mx-auto mb-3 text-amber-400 shadow-lg shadow-amber-500/20">
-              <Trophy className="w-8 h-8 text-amber-400" />
+          <div className="bg-gradient-to-b from-amber-50 to-white border-2 border-amber-300 p-7 rounded-3xl order-1 md:order-2 text-center relative overflow-hidden shadow-md scale-[1.03] ring-1 ring-amber-300">
+            <div className="w-14 h-14 rounded-2xl bg-amber-100 border border-amber-200 flex items-center justify-center mx-auto mb-3 text-amber-600 shadow-sm">
+              <Trophy className="w-8 h-8 text-amber-600" />
             </div>
-            <span className="text-xs font-bold font-mono px-3 py-1 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/40 inline-block mb-2">
+            <span className="text-xs font-bold font-mono px-3 py-1 rounded-full bg-amber-100 text-amber-800 border border-amber-300 inline-block mb-2">
               🏆 #1 GOLD LEADER
             </span>
-            <h3 className="font-bold text-lg text-white truncate">{topThree[0].name}</h3>
-            <p className="text-xs text-amber-200/80 truncate mt-0.5">{topThree[0].tagline}</p>
-            <div className="mt-5 pt-3 border-t border-amber-500/20 flex items-center justify-between text-xs">
-              <span className="text-slate-400">{topThree[0].totalEvaluations} reviews</span>
-              <span className="text-2xl font-black font-mono text-amber-400">
+            <h3 className="font-bold text-lg text-slate-900 truncate">{topThree[0].name}</h3>
+            <p className="text-xs text-amber-800 truncate mt-0.5">{topThree[0].tagline}</p>
+            <div className="mt-5 pt-3 border-t border-amber-200 flex items-center justify-between text-xs">
+              <span className="text-slate-500">{topThree[0].totalEvaluations} reviews</span>
+              <span className="text-2xl font-black font-mono text-amber-600">
                 {topThree[0].aggregateScore} pts
               </span>
             </div>
           </div>
 
           {/* #3 Bronze (Right) */}
-          <div className="glass-panel p-6 rounded-3xl border-amber-700/30 bg-gradient-to-b from-slate-900/80 to-slate-950 order-3 text-center relative overflow-hidden shadow-xl">
-            <div className="w-12 h-12 rounded-2xl bg-amber-800/10 border border-amber-700/30 flex items-center justify-center mx-auto mb-3 text-amber-600">
-              <Medal className="w-6 h-6 text-amber-600" />
+          <div className="bg-white border-2 border-amber-200 p-6 rounded-3xl order-3 text-center relative overflow-hidden shadow-sm">
+            <div className="w-12 h-12 rounded-2xl bg-amber-50 border border-amber-200 flex items-center justify-center mx-auto mb-3 text-amber-700">
+              <Medal className="w-6 h-6 text-amber-700" />
             </div>
-            <span className="text-xs font-bold font-mono px-2.5 py-0.5 rounded-full bg-amber-800/20 text-amber-400 border border-amber-700/30 inline-block mb-2">
+            <span className="text-xs font-bold font-mono px-2.5 py-0.5 rounded-full bg-amber-50 text-amber-800 border border-amber-200 inline-block mb-2">
               #3 BRONZE
             </span>
-            <h3 className="font-bold text-base text-white truncate">{topThree[2].name}</h3>
-            <p className="text-[11px] text-slate-400 truncate mt-0.5">{topThree[2].tagline}</p>
-            <div className="mt-4 pt-3 border-t border-slate-800 flex items-center justify-between text-xs">
-              <span className="text-slate-400">{topThree[2].totalEvaluations} reviews</span>
-              <span className="text-xl font-bold font-mono text-amber-400/90">
+            <h3 className="font-bold text-base text-slate-900 truncate">{topThree[2].name}</h3>
+            <p className="text-[11px] text-slate-500 truncate mt-0.5">{topThree[2].tagline}</p>
+            <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs">
+              <span className="text-slate-500">{topThree[2].totalEvaluations} reviews</span>
+              <span className="text-xl font-bold font-mono text-amber-700">
                 {topThree[2].aggregateScore} pts
               </span>
             </div>
@@ -125,7 +125,7 @@ export const LeaderboardView: React.FC = () => {
       )}
 
       {/* Filter and Search Bar */}
-      <div className="glass-panel p-4 rounded-2xl flex flex-col sm:flex-row items-center justify-between gap-3">
+      <div className="bg-white border border-slate-200 p-4 rounded-2xl flex flex-col sm:flex-row items-center justify-between gap-3 shadow-xs">
         <div className="flex items-center gap-1.5 overflow-x-auto w-full sm:w-auto pb-1 sm:pb-0">
           {tracks.map((t) => (
             <button
@@ -133,8 +133,8 @@ export const LeaderboardView: React.FC = () => {
               onClick={() => setSelectedTrack(t)}
               className={`px-3 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-all ${
                 selectedTrack === t
-                  ? 'bg-amber-600 text-white shadow-md shadow-amber-600/30'
-                  : 'bg-slate-950/60 text-slate-400 hover:text-slate-200'
+                  ? 'bg-blue-600 text-white shadow-xs'
+                  : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
               }`}
             >
               {t === 'all' ? 'All Tracks' : t}
@@ -149,16 +149,16 @@ export const LeaderboardView: React.FC = () => {
             placeholder="Search teams..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full pl-8 pr-3 py-1.5 bg-slate-950/60 border border-slate-800 rounded-xl text-xs text-slate-200 placeholder-slate-500 focus:outline-none focus:border-amber-500"
+            className="w-full pl-8 pr-3 py-1.5 bg-white border border-slate-300 rounded-xl text-xs text-slate-900 placeholder-slate-400 focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600"
           />
         </div>
       </div>
 
       {/* Ranking Table */}
-      <div className="glass-panel rounded-3xl overflow-hidden shadow-2xl">
+      <div className="bg-white border border-slate-200 rounded-3xl overflow-hidden shadow-xs">
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
-            <thead className="bg-slate-950/80 border-b border-slate-800 text-[11px] font-semibold text-slate-400 uppercase tracking-wider">
+            <thead className="bg-slate-50 border-b border-slate-200 text-[11px] font-semibold text-slate-500 uppercase tracking-wider">
               <tr>
                 <th className="py-3.5 px-4 w-16 text-center">Rank</th>
                 <th className="py-3.5 px-4">Team & Project</th>
@@ -168,7 +168,7 @@ export const LeaderboardView: React.FC = () => {
                 <th className="py-3.5 px-4 text-right">Aggregate Score</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-800/60">
+            <tbody className="divide-y divide-slate-100">
               {filteredTeams.map((team, idx) => {
                 const sub = submissions.find((s) => s.id === team.submissionId);
                 const rankDelta = (team.previousRank || idx + 1) - (idx + 1);
@@ -176,13 +176,13 @@ export const LeaderboardView: React.FC = () => {
                 return (
                   <tr
                     key={team.id}
-                    className={`hover:bg-slate-800/40 transition-colors ${
+                    className={`hover:bg-slate-50 transition-colors ${
                       idx === 0
-                        ? 'bg-amber-500/5'
+                        ? 'bg-amber-50/40'
                         : idx === 1
-                        ? 'bg-slate-400/5'
+                        ? 'bg-slate-50/40'
                         : idx === 2
-                        ? 'bg-amber-800/5'
+                        ? 'bg-amber-50/20'
                         : ''
                     }`}
                   >
@@ -192,11 +192,11 @@ export const LeaderboardView: React.FC = () => {
                         <span
                           className={`text-sm ${
                             idx === 0
-                              ? 'text-amber-400 font-extrabold'
+                              ? 'text-amber-600 font-extrabold'
                               : idx === 1
-                              ? 'text-slate-300'
+                              ? 'text-slate-600'
                               : idx === 2
-                              ? 'text-amber-600'
+                              ? 'text-amber-700'
                               : 'text-slate-400'
                           }`}
                         >
@@ -204,18 +204,18 @@ export const LeaderboardView: React.FC = () => {
                         </span>
 
                         {rankDelta > 0 && (
-                          <span className="text-[10px] text-emerald-400 flex items-center" title="Moved up">
+                          <span className="text-[10px] text-emerald-600 flex items-center" title="Moved up">
                             <TrendingUp className="w-3 h-3" />+{rankDelta}
                           </span>
                         )}
                         {rankDelta < 0 && (
-                          <span className="text-[10px] text-rose-400 flex items-center" title="Moved down">
+                          <span className="text-[10px] text-rose-600 flex items-center" title="Moved down">
                             <TrendingDown className="w-3 h-3" />
                             {rankDelta}
                           </span>
                         )}
                         {rankDelta === 0 && (
-                          <span className="text-[10px] text-slate-600" title="No change">
+                          <span className="text-[10px] text-slate-400" title="No change">
                             <Minus className="w-2.5 h-2.5" />
                           </span>
                         )}
@@ -224,15 +224,15 @@ export const LeaderboardView: React.FC = () => {
 
                     {/* Team & Project */}
                     <td className="py-4 px-4">
-                      <div className="font-bold text-sm text-white">{team.name}</div>
-                      <div className="text-[11px] text-slate-400 truncate max-w-sm">
+                      <div className="font-bold text-sm text-slate-900">{team.name}</div>
+                      <div className="text-[11px] text-slate-500 truncate max-w-sm">
                         {sub ? sub.title : team.tagline}
                       </div>
                     </td>
 
                     {/* Track */}
                     <td className="py-4 px-4">
-                      <span className="px-2.5 py-1 rounded-lg bg-slate-800/80 text-indigo-300 font-medium text-[11px]">
+                      <span className="px-2.5 py-1 rounded-lg bg-blue-50 border border-blue-200 text-blue-700 font-medium text-[11px]">
                         {team.track}
                       </span>
                     </td>
@@ -246,22 +246,22 @@ export const LeaderboardView: React.FC = () => {
                             src={m.avatar}
                             alt={m.name}
                             title={`${m.name} (${m.role})`}
-                            className="w-6 h-6 rounded-full object-cover ring-1 ring-slate-800"
+                            className="w-6 h-6 rounded-full object-cover ring-2 ring-white"
                           />
                         ))}
                       </div>
                     </td>
 
                     {/* Evaluations */}
-                    <td className="py-4 px-4 text-center font-mono text-slate-300">
-                      <span className="px-2 py-0.5 rounded-full bg-slate-900 border border-slate-800 text-[11px]">
+                    <td className="py-4 px-4 text-center font-mono text-slate-600">
+                      <span className="px-2 py-0.5 rounded-full bg-slate-100 border border-slate-200 text-[11px]">
                         {team.totalEvaluations} reviews
                       </span>
                     </td>
 
                     {/* Aggregate Score */}
                     <td className="py-4 px-4 text-right">
-                      <span className="text-base font-bold font-mono text-emerald-400">
+                      <span className="text-base font-bold font-mono text-blue-600">
                         {team.aggregateScore !== undefined && team.aggregateScore > 0
                           ? `${team.aggregateScore} pts`
                           : '—'}
