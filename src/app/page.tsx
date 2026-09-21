@@ -26,6 +26,9 @@ import {
   ChevronRight,
   Search,
   Radio,
+  SlidersHorizontal,
+  Flame,
+  GraduationCap,
 } from 'lucide-react';
 import { useEvent } from '@/context/EventContext';
 import { StudentRegistrationModal } from '@/components/common/StudentRegistrationModal';
@@ -33,18 +36,45 @@ import { StudentRegistrationModal } from '@/components/common/StudentRegistratio
 export default function LandingPage() {
   const { events, setRole, switchUser, users, stats, announcements } = useEvent();
   const [showRegistrationModal, setShowRegistrationModal] = useState(false);
-  const [activeHeroTab, setActiveHeroTab] = useState<'pass' | 'broadcast' | 'scanner'>('pass');
+  const [searchQuery, setSearchQuery] = useState('');
+  const [activeCategory, setActiveCategory] = useState('all');
 
   const publishedEvents = events.filter((e) => e.status === 'published');
-  const featuredEvents = publishedEvents.slice(0, 3);
+  
+  // Filter events by search query and category
+  const filteredEvents = publishedEvents.filter((event) => {
+    if (activeCategory !== 'all' && event.category.toLowerCase() !== activeCategory.toLowerCase()) {
+      return false;
+    }
+    if (searchQuery.trim()) {
+      const q = searchQuery.toLowerCase();
+      return (
+        event.title.toLowerCase().includes(q) ||
+        event.description.toLowerCase().includes(q) ||
+        event.venueName.toLowerCase().includes(q) ||
+        event.category.toLowerCase().includes(q)
+      );
+    }
+    return true;
+  });
+
+  const featuredEvents = filteredEvents.slice(0, 3);
+
+  const categories = [
+    { id: 'all', label: 'All Events' },
+    { id: 'technical', label: 'Technical & Coding' },
+    { id: 'cultural', label: 'Cultural (Aarohan)' },
+    { id: 'academic', label: 'Academic Seminars' },
+    { id: 'sports', label: 'Sports & Gymkhana' },
+  ];
 
   return (
     <div className="min-h-screen bg-[#f8fafc] text-slate-800 selection:bg-blue-600 selection:text-white">
       {/* Institutional Top Navbar */}
-      <nav className="border-b border-slate-200 bg-white/95 backdrop-blur-md sticky top-0 z-50 shadow-xs">
+      <nav className="border-b border-slate-200/90 bg-white/95 backdrop-blur-md sticky top-0 z-50 shadow-xs">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
           <div className="flex items-center gap-3.5">
-            <div className="w-10 h-10 rounded-xl bg-blue-600 flex items-center justify-center text-white font-black text-sm tracking-wider shadow-xs">
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-600 to-indigo-700 flex items-center justify-center text-white font-black text-sm tracking-wider shadow-sm">
               RC
             </div>
             <div>
@@ -60,8 +90,8 @@ export default function LandingPage() {
           <div className="hidden lg:flex items-center gap-6 text-xs text-slate-600 font-medium">
             <a href="#events" className="hover:text-blue-600 transition-colors">Upcoming Events</a>
             <a href="#how-it-works" className="hover:text-blue-600 transition-colors">How It Works</a>
-            <a href="#portals" className="hover:text-blue-600 transition-colors">Campus Portals</a>
-            <a href="#venues" className="hover:text-blue-600 transition-colors">Venues & Facilities</a>
+            <a href="#venues" className="hover:text-blue-600 transition-colors">Campus Venues</a>
+            <a href="#portals" className="hover:text-blue-600 transition-colors">Role Portals</a>
             <a href="#about" className="hover:text-blue-600 transition-colors">About Ruia</a>
           </div>
 
@@ -84,7 +114,7 @@ export default function LandingPage() {
               }}
               className="px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold shadow-xs transition-colors flex items-center gap-1.5"
             >
-              <span>Access Student Portal</span>
+              <span>Access Portal</span>
               <ArrowRight className="w-3.5 h-3.5" />
             </Link>
           </div>
@@ -101,19 +131,20 @@ export default function LandingPage() {
         </span>
         <span className="hidden md:inline text-blue-400">•</span>
         <span className="hidden md:inline text-blue-700 font-normal">
-          Optical Camera Gate Pass verification active at Auditorium Gate.
+          Optical Camera Gate Pass verification active at Ruia Auditorium Desk.
         </span>
       </div>
 
-      {/* Hero Section */}
-      <section className="relative pt-12 pb-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto overflow-hidden">
-        {/* Subtle decorative background glow */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[350px] bg-blue-100/60 blur-[100px] -z-10 pointer-events-none rounded-full" />
+      {/* Hero Section with Rich Visual Depth & Collegiate Imagery */}
+      <section className="relative pt-10 pb-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto overflow-hidden">
+        {/* Subtle architectural dot grid & ambient light */}
+        <div className="absolute inset-0 bg-[radial-gradient(#94a3b8_1px,transparent_1px)] [background-size:24px_24px] opacity-20 pointer-events-none -z-20" />
+        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[800px] h-[350px] bg-gradient-to-tr from-blue-100/70 via-sky-100/40 to-indigo-100/30 blur-[100px] -z-10 pointer-events-none rounded-full" />
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
-          {/* Left Column: Hero Copy & Calls to Action */}
-          <div className="lg:col-span-7 text-center lg:text-left space-y-6">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-slate-200 text-xs text-slate-700 shadow-2xs">
+          {/* Left Column: Hero Typography & Actions */}
+          <div className="lg:col-span-6 text-center lg:text-left space-y-6">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-slate-200/90 text-xs text-slate-700 shadow-xs">
               <span className="flex h-2 w-2 relative">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
@@ -123,25 +154,25 @@ export default function LandingPage() {
               <span className="text-blue-700 font-medium">Estd. 1937 • NAAC 'A+' Grade</span>
             </div>
 
-            {/* Prominent Smart Event Management Title */}
-            <div>
-              <h1 className="text-4xl sm:text-6xl font-extrabold text-slate-900 tracking-tight leading-[1.12]">
+            {/* Smart Event Management Main Heading */}
+            <div className="space-y-2">
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 tracking-tight leading-[1.1]">
                 Smart Event Management
               </h1>
-              <p className="text-lg sm:text-xl font-bold text-blue-700 mt-2 tracking-tight">
+              <p className="text-lg sm:text-xl font-bold bg-gradient-to-r from-blue-700 via-indigo-600 to-blue-800 bg-clip-text text-transparent tracking-tight">
                 Official Campus Events, Festivals & Academic Symposiums Portal
               </p>
             </div>
 
-            <p className="text-sm sm:text-base text-slate-600 max-w-2xl mx-auto lg:mx-0 leading-relaxed">
-              Welcome to Ramnarain Ruia Autonomous College’s unified digital ecosystem. Browse department symposiums, register for inter-collegiate hackathons, obtain instant QR entrance passes, and receive live organizer broadcasts.
+            <p className="text-sm sm:text-base text-slate-600 max-w-xl mx-auto lg:mx-0 leading-relaxed">
+              The unified digital ecosystem for Ramnarain Ruia Autonomous College. Discover campus festivals, register with your roll number, download digital QR gate tickets, and receive real-time updates from organizing committees.
             </p>
 
             {/* Primary Calls to Action */}
-            <div className="flex flex-wrap items-center justify-center lg:justify-start gap-3 pt-2">
+            <div className="flex flex-wrap items-center justify-center lg:justify-start gap-3 pt-1">
               <button
                 onClick={() => setShowRegistrationModal(true)}
-                className="px-6 py-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs sm:text-sm font-semibold shadow-xs transition-colors flex items-center gap-2 cursor-pointer"
+                className="px-6 py-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs sm:text-sm font-semibold shadow-sm hover:shadow-md transition-all flex items-center gap-2 cursor-pointer"
               >
                 <UserPlus className="w-4 h-4" />
                 <span>New Student? Register Profile</span>
@@ -169,190 +200,101 @@ export default function LandingPage() {
               </Link>
             </div>
 
-            {/* Key Value Badges */}
-            <div className="pt-2 flex flex-wrap items-center justify-center lg:justify-start gap-4 text-xs text-slate-500">
-              <div className="flex items-center gap-1.5">
-                <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
-                <span>Instant QR Entry Pass</span>
+            {/* Live Search & Quick Filter Input right on hero */}
+            <div className="pt-2 max-w-lg mx-auto lg:mx-0">
+              <div className="relative">
+                <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+                <input
+                  type="text"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  placeholder="Search symposiums, hackathons, venues (e.g., TechNova, Quadrangle)..."
+                  className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-white border border-slate-300 text-xs text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600 shadow-xs transition-colors"
+                />
               </div>
-              <div className="flex items-center gap-1.5">
-                <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
-                <span>Live Camera Verification</span>
-              </div>
-              <div className="flex items-center gap-1.5">
-                <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
-                <span>Verified E-Certificates</span>
+
+              {/* Category Pills */}
+              <div className="flex items-center gap-1.5 overflow-x-auto pt-2.5 pb-1">
+                {categories.map((cat) => (
+                  <button
+                    key={cat.id}
+                    onClick={() => setActiveCategory(cat.id)}
+                    className={`px-2.5 py-1 rounded-lg text-[11px] font-semibold whitespace-nowrap transition-colors cursor-pointer ${
+                      activeCategory === cat.id
+                        ? 'bg-blue-600 text-white'
+                        : 'bg-white text-slate-600 border border-slate-200 hover:bg-slate-50'
+                    }`}
+                  >
+                    {cat.label}
+                  </button>
+                ))}
               </div>
             </div>
           </div>
 
-          {/* Right Column: Interactive Live Showcase Preview */}
-          <div className="lg:col-span-5">
-            <div className="bg-white border border-slate-200 rounded-3xl p-5 shadow-lg relative">
-              {/* Tab Selector Switcher */}
-              <div className="flex items-center p-1 bg-slate-100 rounded-2xl mb-4 text-xs font-semibold">
-                <button
-                  onClick={() => setActiveHeroTab('pass')}
-                  className={`flex-1 py-1.5 px-2 rounded-xl transition-all flex items-center justify-center gap-1.5 ${
-                    activeHeroTab === 'pass'
-                      ? 'bg-white text-blue-700 shadow-xs'
-                      : 'text-slate-600 hover:text-slate-900'
-                  }`}
-                >
-                  <QrCode className="w-3.5 h-3.5" />
-                  <span>Student Pass</span>
-                </button>
-                <button
-                  onClick={() => setActiveHeroTab('broadcast')}
-                  className={`flex-1 py-1.5 px-2 rounded-xl transition-all flex items-center justify-center gap-1.5 ${
-                    activeHeroTab === 'broadcast'
-                      ? 'bg-white text-blue-700 shadow-xs'
-                      : 'text-slate-600 hover:text-slate-900'
-                  }`}
-                >
-                  <Bell className="w-3.5 h-3.5" />
-                  <span>Live Alerts</span>
-                </button>
-                <button
-                  onClick={() => setActiveHeroTab('scanner')}
-                  className={`flex-1 py-1.5 px-2 rounded-xl transition-all flex items-center justify-center gap-1.5 ${
-                    activeHeroTab === 'scanner'
-                      ? 'bg-white text-blue-700 shadow-xs'
-                      : 'text-slate-600 hover:text-slate-900'
-                  }`}
-                >
-                  <Radio className="w-3.5 h-3.5" />
-                  <span>Gate Scanner</span>
-                </button>
-              </div>
+          {/* Right Column: Hero Visual Showcase (High-Res Event Photo + Layered Pass & Scanner Badges) */}
+          <div className="lg:col-span-6 relative">
+            {/* Main Visual Media Card */}
+            <div className="relative rounded-3xl overflow-hidden border border-slate-200/90 shadow-xl bg-white group">
+              <div className="relative h-80 sm:h-[400px] w-full overflow-hidden bg-slate-900">
+                <img
+                  src="https://images.unsplash.com/photo-1523580494863-6f3031224c94?w=1200&auto=format&fit=crop&q=85"
+                  alt="Ramnarain Ruia Autonomous College Campus Event Gathering"
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 brightness-[0.92]"
+                />
+                {/* Gradient scrim for clear readability */}
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/30 to-transparent opacity-90" />
 
-              {/* Tab 1: Student Digital QR Pass Showcase */}
-              {activeHeroTab === 'pass' && (
-                <div className="space-y-4">
-                  <div className="border border-blue-200 bg-gradient-to-b from-blue-50/50 to-white rounded-2xl p-4 relative overflow-hidden">
-                    <div className="flex items-center justify-between pb-3 border-b border-blue-100">
-                      <div>
-                        <span className="text-[10px] font-bold tracking-wider text-blue-800 uppercase block">
-                          Ramnarain Ruia Autonomous College
-                        </span>
-                        <h4 className="font-bold text-sm text-slate-900 mt-0.5">
-                          TechNova 2026: National Hackathon
-                        </h4>
-                      </div>
-                      <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 border border-emerald-200">
-                        Confirmed Entry ✓
-                      </span>
-                    </div>
-
-                    <div className="py-4 flex items-center justify-between gap-4">
-                      <div className="space-y-1 text-xs">
-                        <span className="text-slate-400 block text-[11px]">Attendee</span>
-                        <span className="font-bold text-slate-900 block text-sm">Aarav Sharma</span>
-                        <span className="font-mono text-slate-600 block text-xs">RUIA-2026-CS105</span>
-                        <div className="pt-2 text-[11px] text-slate-500">
-                          <span className="block font-medium text-slate-700">Ruia College Auditorium</span>
-                          <span>Oct 15, 2026 • 09:00 AM</span>
-                        </div>
-                      </div>
-
-                      {/* Real QR Code Visual */}
-                      <div className="bg-white p-2.5 rounded-2xl border border-slate-200 shadow-xs flex flex-col items-center shrink-0">
-                        <div className="w-24 h-24 bg-slate-900 rounded-lg p-1.5 flex items-center justify-center">
-                          {/* SVG QR Code Simulation */}
-                          <svg className="w-full h-full text-white" viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M2 2h8v8H2V2zm2 2v4h4V4H4zm10-2h8v8h-8V2zm2 2v4h4V4h-4zM2 14h8v8H2v-8zm2 2v4h4v-4H4zm12-2h2v2h-2v-2zm4 0h2v2h-2v-2zm-4 4h2v2h-2v-2zm4 0h2v2h-2v-2zm-4 4h2v2h-2v-2zm4 0h2v2h-2v-2zM5 5h2v2H5V5zm12 0h2v2h-2V5zM5 17h2v2H5v-2z" />
-                          </svg>
-                        </div>
-                        <span className="text-[9px] font-mono text-slate-400 mt-1">PASS-RUIA-9482</span>
-                      </div>
-                    </div>
-
-                    <div className="pt-2 border-t border-dashed border-slate-200 flex items-center justify-between text-[11px] text-slate-500">
-                      <span>Seat: Tier A • Row 4</span>
-                      <span className="font-medium text-blue-600">Scan at Gate Desk</span>
-                    </div>
+                {/* Top Overlay Badges */}
+                <div className="absolute top-4 left-4 right-4 flex items-center justify-between gap-2">
+                  <div className="px-3 py-1.5 rounded-full bg-white/95 backdrop-blur-md text-xs font-bold text-slate-900 shadow-sm flex items-center gap-2">
+                    <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                    <span>Ruia Campus Live</span>
                   </div>
-
-                  <p className="text-[11px] text-slate-500 text-center">
-                    Every student receives an instant digital entry pass with optical scanner compatibility.
-                  </p>
-                </div>
-              )}
-
-              {/* Tab 2: Live Organizer Alerts */}
-              {activeHeroTab === 'broadcast' && (
-                <div className="space-y-3">
-                  <div className="p-3 rounded-2xl bg-amber-50/80 border border-amber-200 text-xs space-y-1">
-                    <div className="flex items-center justify-between">
-                      <span className="font-bold text-amber-900 flex items-center gap-1.5">
-                        <Bell className="w-3.5 h-3.5 text-amber-600" />
-                        Keynote Venue Confirmation
-                      </span>
-                      <span className="text-[10px] text-amber-700">10m ago</span>
-                    </div>
-                    <p className="text-slate-600 text-[11px]">
-                      TechNova 2026 opening ceremony will take place in the Ruia College Auditorium. Please be seated by 09:15 AM.
-                    </p>
-                  </div>
-
-                  <div className="p-3 rounded-2xl bg-blue-50/80 border border-blue-200 text-xs space-y-1">
-                    <div className="flex items-center justify-between">
-                      <span className="font-bold text-blue-900 flex items-center gap-1.5">
-                        <Calendar className="w-3.5 h-3.5 text-blue-600" />
-                        Team Matchmaking Desk Open
-                      </span>
-                      <span className="text-[10px] text-blue-700">1h ago</span>
-                    </div>
-                    <p className="text-slate-600 text-[11px]">
-                      Solo registrants can find teammates at CS & IT Lab 4 or directly in the online Hackathon Hub.
-                    </p>
-                  </div>
-
-                  <div className="p-3 rounded-2xl bg-slate-50 border border-slate-200 text-xs space-y-1">
-                    <div className="flex items-center justify-between">
-                      <span className="font-semibold text-slate-800">
-                        Aarohan Cultural Fest Auditions
-                      </span>
-                      <span className="text-[10px] text-slate-500">Yesterday</span>
-                    </div>
-                    <p className="text-slate-600 text-[11px]">
-                      Drama and Indian folk dance auditions continue in the Historic Ruia Quadrangle.
-                    </p>
+                  <div className="px-3 py-1.5 rounded-full bg-blue-600/95 backdrop-blur-md text-xs font-semibold text-white shadow-sm flex items-center gap-1.5">
+                    <MapPin className="w-3.5 h-3.5" />
+                    <span>Auditorium & Quadrangle</span>
                   </div>
                 </div>
-              )}
 
-              {/* Tab 3: Gate Scanner Simulator */}
-              {activeHeroTab === 'scanner' && (
-                <div className="space-y-3 text-center">
-                  <div className="relative bg-slate-900 rounded-2xl p-6 text-white overflow-hidden flex flex-col items-center justify-center min-h-[190px]">
-                    {/* Viewfinder reticle */}
-                    <div className="w-32 h-32 border-2 border-dashed border-emerald-400 rounded-xl relative flex items-center justify-center animate-pulse">
-                      <QrCode className="w-16 h-16 text-emerald-400/80" />
-                      <div className="absolute inset-x-0 h-0.5 bg-emerald-400 top-1/2 -translate-y-1/2 shadow-[0_0_8px_#34d399]" />
-                    </div>
-                    <span className="text-[11px] text-emerald-300 font-mono mt-3">
-                      OPTICAL WEBCAM SCANNER ACTIVE (30 FPS)
+                {/* Bottom Information on the Photo */}
+                <div className="absolute bottom-5 left-5 right-5 text-white space-y-1.5">
+                  <div className="flex items-center gap-2 flex-wrap">
+                    <span className="px-2.5 py-0.5 rounded-full bg-blue-600 text-white font-mono text-[10px] uppercase font-bold tracking-wider">
+                      Flagship Summit
+                    </span>
+                    <span className="text-xs text-blue-200 font-medium">
+                      Oct 15 - 16, 2026
                     </span>
                   </div>
+                  <h3 className="text-xl sm:text-2xl font-black text-white tracking-tight">
+                    TechNova 2026: National Innovation Summit
+                  </h3>
+                  <p className="text-xs text-slate-200 line-clamp-2 leading-relaxed">
+                    36-Hour Hackathon • Cash Pool ₹1,50,000 • Keynote by Industry Leaders • Ruia Auditorium & Quadrangle
+                  </p>
+                </div>
+              </div>
 
-                  <div className="p-3 rounded-xl bg-emerald-50 border border-emerald-200 text-left flex items-center justify-between">
-                    <div>
-                      <span className="text-xs font-bold text-emerald-900 block">
-                        Scan Verified: Aarav Sharma
-                      </span>
-                      <span className="text-[11px] text-emerald-700">
-                        RUIA-2026-CS105 • Entry Permitted (Gate A)
+              {/* Floating Badge 1: Live QR Entrance Pass Preview */}
+              <div className="p-4 bg-white border-t border-slate-100 flex items-center justify-between gap-4">
+                <div className="flex items-center gap-3">
+                  <div className="w-11 h-11 rounded-2xl bg-blue-50 border border-blue-100 flex items-center justify-center text-blue-700 shrink-0 shadow-2xs">
+                    <QrCode className="w-6 h-6" />
+                  </div>
+                  <div>
+                    <div className="flex items-center gap-2">
+                      <span className="text-xs font-bold text-slate-900">Student Digital Pass</span>
+                      <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800">
+                        Active ✓
                       </span>
                     </div>
-                    <CheckCircle2 className="w-5 h-5 text-emerald-600" />
+                    <span className="text-xs text-slate-500 block">
+                      RUIA-2026-CS105 • Aarav Sharma • Auditorium Tier A
+                    </span>
                   </div>
                 </div>
-              )}
 
-              {/* Quick Jump to Dashboard */}
-              <div className="pt-3 border-t border-slate-100 flex items-center justify-between text-xs">
-                <span className="text-slate-500 text-[11px]">Experience it in real time</span>
                 <Link
                   href="/dashboard"
                   onClick={() => {
@@ -360,18 +302,32 @@ export default function LandingPage() {
                     const s = users.find((u) => u.role === 'student');
                     if (s) switchUser(s.id);
                   }}
-                  className="font-semibold text-blue-600 hover:text-blue-800 flex items-center gap-1"
+                  className="px-3.5 py-1.5 rounded-xl bg-blue-50 hover:bg-blue-600 hover:text-white text-blue-700 text-xs font-semibold transition-colors shrink-0"
                 >
-                  <span>Launch Live Platform</span>
-                  <ArrowRight className="w-3.5 h-3.5" />
+                  View Pass
                 </Link>
+              </div>
+            </div>
+
+            {/* Floating Live Gate Scanner Notification Card */}
+            <div className="hidden sm:flex absolute -bottom-5 -left-5 bg-white/95 backdrop-blur-md border border-slate-200 p-3.5 rounded-2xl shadow-xl items-center gap-3 max-w-xs animate-bounce-subtle z-10">
+              <div className="w-9 h-9 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center shrink-0">
+                <CheckCircle2 className="w-5 h-5" />
+              </div>
+              <div className="text-xs">
+                <span className="font-bold text-slate-900 block leading-tight">
+                  Gate A Check-In Verified
+                </span>
+                <span className="text-[11px] text-slate-500">
+                  Optical camera scanned ticket in 0.3s
+                </span>
               </div>
             </div>
           </div>
         </div>
 
         {/* Institutional Statistics Bar */}
-        <div className="mt-12 pt-8 border-t border-slate-200/80 grid grid-cols-2 md:grid-cols-4 gap-4 max-w-5xl mx-auto">
+        <div className="mt-14 pt-8 border-t border-slate-200/80 grid grid-cols-2 md:grid-cols-4 gap-4 max-w-5xl mx-auto">
           <div className="p-4 bg-white border border-slate-200 rounded-2xl text-center shadow-xs hover:border-blue-300 transition-colors">
             <span className="text-2xl sm:text-3xl font-bold font-mono text-slate-900">{stats.totalEvents}</span>
             <span className="text-xs text-slate-500 block mt-1">Active Campus Events</span>
@@ -406,9 +362,9 @@ export default function LandingPage() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-6 relative">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {/* Step 1 */}
-            <div className="p-5 rounded-2xl bg-slate-50 border border-slate-200 space-y-3 relative group hover:bg-blue-50/40 hover:border-blue-300 transition-all">
+            <div className="p-5 rounded-2xl bg-slate-50/70 border border-slate-200 space-y-3 hover:bg-blue-50/40 hover:border-blue-300 transition-all">
               <div className="w-10 h-10 rounded-xl bg-blue-600 text-white font-bold flex items-center justify-center text-sm shadow-xs">
                 1
               </div>
@@ -419,7 +375,7 @@ export default function LandingPage() {
             </div>
 
             {/* Step 2 */}
-            <div className="p-5 rounded-2xl bg-slate-50 border border-slate-200 space-y-3 relative group hover:bg-blue-50/40 hover:border-blue-300 transition-all">
+            <div className="p-5 rounded-2xl bg-slate-50/70 border border-slate-200 space-y-3 hover:bg-blue-50/40 hover:border-blue-300 transition-all">
               <div className="w-10 h-10 rounded-xl bg-blue-600 text-white font-bold flex items-center justify-center text-sm shadow-xs">
                 2
               </div>
@@ -430,7 +386,7 @@ export default function LandingPage() {
             </div>
 
             {/* Step 3 */}
-            <div className="p-5 rounded-2xl bg-slate-50 border border-slate-200 space-y-3 relative group hover:bg-blue-50/40 hover:border-blue-300 transition-all">
+            <div className="p-5 rounded-2xl bg-slate-50/70 border border-slate-200 space-y-3 hover:bg-blue-50/40 hover:border-blue-300 transition-all">
               <div className="w-10 h-10 rounded-xl bg-blue-600 text-white font-bold flex items-center justify-center text-sm shadow-xs">
                 3
               </div>
@@ -441,7 +397,7 @@ export default function LandingPage() {
             </div>
 
             {/* Step 4 */}
-            <div className="p-5 rounded-2xl bg-slate-50 border border-slate-200 space-y-3 relative group hover:bg-blue-50/40 hover:border-blue-300 transition-all">
+            <div className="p-5 rounded-2xl bg-slate-50/70 border border-slate-200 space-y-3 hover:bg-blue-50/40 hover:border-blue-300 transition-all">
               <div className="w-10 h-10 rounded-xl bg-blue-600 text-white font-bold flex items-center justify-center text-sm shadow-xs">
                 4
               </div>
@@ -474,87 +430,242 @@ export default function LandingPage() {
             }}
             className="text-xs font-semibold text-blue-600 hover:text-blue-800 flex items-center gap-1 self-start sm:self-auto"
           >
-            <span>View Complete Catalogue ({events.length})</span>
+            <span>View Complete Catalogue ({publishedEvents.length})</span>
             <ArrowRight className="w-3.5 h-3.5" />
           </Link>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {featuredEvents.map((event) => {
-            const pct = Math.min(100, Math.round((event.registeredCount / event.capacity) * 100));
-            return (
-              <div
-                key={event.id}
-                className="bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-xs hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group"
-              >
-                <div className="relative h-48 overflow-hidden bg-slate-100">
-                  <img
-                    src={event.bannerImage}
-                    alt={event.title}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
-                  <span className="absolute top-3 left-3 text-[10px] font-semibold px-2.5 py-0.5 rounded-full bg-blue-600 text-white shadow-xs">
-                    {event.category}
-                  </span>
-                  <span className="absolute bottom-3 right-3 text-xs font-bold px-2.5 py-0.5 rounded-full bg-white text-emerald-700 font-mono shadow-xs">
-                    {event.price === 0 ? 'Free Entry' : `₹${event.price}`}
-                  </span>
+        {featuredEvents.length === 0 ? (
+          <div className="text-center py-12 bg-white border border-slate-200 rounded-3xl p-6">
+            <Calendar className="w-10 h-10 text-slate-300 mx-auto mb-2" />
+            <p className="text-sm font-semibold text-slate-800">No events matched your search.</p>
+            <p className="text-xs text-slate-500 mt-1">Try clearing your search query or selecting "All Events".</p>
+            <button
+              onClick={() => {
+                setSearchQuery('');
+                setActiveCategory('all');
+              }}
+              className="mt-3 px-3.5 py-1.5 rounded-xl bg-blue-50 text-blue-700 text-xs font-semibold"
+            >
+              Reset Filters
+            </button>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {featuredEvents.map((event) => {
+              const pct = Math.min(100, Math.round((event.registeredCount / event.capacity) * 100));
+              const eventDate = new Date(event.startDate);
+              return (
+                <div
+                  key={event.id}
+                  className="bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-xs hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group"
+                >
+                  <div className="relative h-48 overflow-hidden bg-slate-100">
+                    <img
+                      src={event.bannerImage}
+                      alt={event.title}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
+                    
+                    {/* Date Badge */}
+                    <div className="absolute top-3 left-3 bg-white/95 backdrop-blur-md rounded-xl px-2.5 py-1 text-center shadow-xs">
+                      <span className="text-[10px] font-bold text-blue-700 block uppercase leading-tight">
+                        {eventDate.toLocaleDateString('en-US', { month: 'short' })}
+                      </span>
+                      <span className="text-sm font-black text-slate-900 block leading-tight">
+                        {eventDate.getDate()}
+                      </span>
+                    </div>
+
+                    <span className="absolute top-3 right-3 text-[10px] font-semibold px-2.5 py-0.5 rounded-full bg-blue-600 text-white shadow-xs">
+                      {event.category}
+                    </span>
+
+                    <span className="absolute bottom-3 right-3 text-xs font-bold px-2.5 py-0.5 rounded-full bg-white text-emerald-700 font-mono shadow-xs">
+                      {event.price === 0 ? 'Free Entry' : `₹${event.price}`}
+                    </span>
+                  </div>
+
+                  <div className="p-5 space-y-3 flex-1 flex flex-col justify-between">
+                    <div>
+                      <h3 className="font-bold text-sm text-slate-900 line-clamp-1 group-hover:text-blue-600 transition-colors">
+                        {event.title}
+                      </h3>
+                      <p className="text-xs text-slate-600 mt-1.5 line-clamp-2 leading-relaxed">
+                        {event.description}
+                      </p>
+                    </div>
+
+                    {/* Capacity Meter */}
+                    <div className="space-y-1">
+                      <div className="flex items-center justify-between text-[11px] text-slate-500">
+                        <span>Capacity Enrolled</span>
+                        <span className="font-semibold text-slate-700">{event.registeredCount} / {event.capacity} ({pct}%)</span>
+                      </div>
+                      <div className="w-full h-1.5 bg-slate-100 rounded-full overflow-hidden">
+                        <div
+                          className="h-full bg-blue-600 rounded-full"
+                          style={{ width: `${pct}%` }}
+                        />
+                      </div>
+                    </div>
+
+                    <div className="space-y-1.5 pt-3 border-t border-slate-100 text-xs text-slate-500">
+                      <div className="flex items-center gap-2">
+                        <Clock className="w-3.5 h-3.5 text-blue-600 shrink-0" />
+                        <span>{eventDate.toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' })} onwards</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <MapPin className="w-3.5 h-3.5 text-rose-500 shrink-0" />
+                        <span className="truncate">{event.venueName}</span>
+                      </div>
+                    </div>
+
+                    <div className="pt-2">
+                      <Link
+                        href="/dashboard"
+                        onClick={() => {
+                          setRole('student');
+                          const s = users.find((u) => u.role === 'student');
+                          if (s) switchUser(s.id);
+                        }}
+                        className="w-full py-2.5 rounded-xl bg-blue-50 hover:bg-blue-600 hover:text-white text-blue-700 text-xs font-semibold flex items-center justify-center gap-1.5 transition-colors"
+                      >
+                        <span>View Details & Register</span>
+                        <ArrowRight className="w-3.5 h-3.5" />
+                      </Link>
+                    </div>
+                  </div>
                 </div>
+              );
+            })}
+          </div>
+        )}
+      </section>
 
-                <div className="p-5 space-y-3 flex-1 flex flex-col justify-between">
-                  <div>
-                    <h3 className="font-bold text-sm text-slate-900 line-clamp-1 group-hover:text-blue-600 transition-colors">
-                      {event.title}
-                    </h3>
-                    <p className="text-xs text-slate-600 mt-1.5 line-clamp-2 leading-relaxed">
-                      {event.description}
-                    </p>
-                  </div>
+      {/* Campus Venues & Facilities (Photo Cards Gallery) */}
+      <section id="venues" className="py-14 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto">
+        <div className="text-center max-w-2xl mx-auto space-y-2 mb-10">
+          <span className="text-xs font-semibold text-blue-600 uppercase tracking-wider">
+            Campus Infrastructure
+          </span>
+          <h2 className="text-xl sm:text-2xl font-bold text-slate-900">
+            Iconic Ruia College Facilities
+          </h2>
+          <p className="text-xs text-slate-500">
+            State-of-the-art heritage and modern venues equipped for academic, technical, and cultural activities.
+          </p>
+        </div>
 
-                  {/* Capacity Meter */}
-                  <div className="space-y-1">
-                    <div className="flex items-center justify-between text-[11px] text-slate-500">
-                      <span>Capacity Enrolled</span>
-                      <span className="font-semibold text-slate-700">{event.registeredCount} / {event.capacity} ({pct}%)</span>
-                    </div>
-                    <div className="w-full h-1.5 bg-slate-100 rounded-full overflow-hidden">
-                      <div
-                        className="h-full bg-blue-600 rounded-full"
-                        style={{ width: `${pct}%` }}
-                      />
-                    </div>
-                  </div>
-
-                  <div className="space-y-1.5 pt-3 border-t border-slate-100 text-xs text-slate-500">
-                    <div className="flex items-center gap-2">
-                      <Calendar className="w-3.5 h-3.5 text-blue-600 shrink-0" />
-                      <span>{new Date(event.startDate).toLocaleDateString('en-IN', { month: 'short', day: 'numeric', year: 'numeric' })}</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <MapPin className="w-3.5 h-3.5 text-rose-500 shrink-0" />
-                      <span className="truncate">{event.venueName}</span>
-                    </div>
-                  </div>
-
-                  <div className="pt-2">
-                    <Link
-                      href="/dashboard"
-                      onClick={() => {
-                        setRole('student');
-                        const s = users.find((u) => u.role === 'student');
-                        if (s) switchUser(s.id);
-                      }}
-                      className="w-full py-2.5 rounded-xl bg-blue-50 hover:bg-blue-600 hover:text-white text-blue-700 text-xs font-semibold flex items-center justify-center gap-1.5 transition-colors"
-                    >
-                      <span>View Details & Register</span>
-                      <ArrowRight className="w-3.5 h-3.5" />
-                    </Link>
-                  </div>
-                </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+          {/* Venue 1: Auditorium */}
+          <div className="bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-xs hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between">
+            <div className="h-36 relative overflow-hidden bg-slate-900">
+              <img
+                src="https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=600&auto=format&fit=crop&q=80"
+                alt="Ruia College Auditorium"
+                className="w-full h-full object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+              <span className="absolute top-2.5 left-2.5 text-[10px] font-bold px-2 py-0.5 rounded-full bg-blue-600 text-white">
+                Main Building
+              </span>
+            </div>
+            <div className="p-4 space-y-2 flex-1 flex flex-col justify-between">
+              <div>
+                <h4 className="font-bold text-sm text-slate-900">Ruia College Auditorium</h4>
+                <p className="text-xs text-slate-500 mt-1 leading-relaxed">
+                  Air-conditioned auditorium with acoustic treatment, proscenium stage, and professional lighting.
+                </p>
               </div>
-            );
-          })}
+              <div className="pt-2 text-[11px] text-slate-700 font-semibold border-t border-slate-100 flex items-center justify-between">
+                <span>Capacity: 650 Seats</span>
+                <span className="text-emerald-700">Central A/C</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Venue 2: Quadrangle */}
+          <div className="bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-xs hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between">
+            <div className="h-36 relative overflow-hidden bg-slate-900">
+              <img
+                src="https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=600&auto=format&fit=crop&q=80"
+                alt="Historic Ruia Quadrangle"
+                className="w-full h-full object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+              <span className="absolute top-2.5 left-2.5 text-[10px] font-bold px-2 py-0.5 rounded-full bg-blue-600 text-white">
+                Central Quad
+              </span>
+            </div>
+            <div className="p-4 space-y-2 flex-1 flex flex-col justify-between">
+              <div>
+                <h4 className="font-bold text-sm text-slate-900">The Ruia Quadrangle</h4>
+                <p className="text-xs text-slate-500 mt-1 leading-relaxed">
+                  Iconic heritage open-air amphitheater hosting annual festivals, exhibitions, and college assemblies.
+                </p>
+              </div>
+              <div className="pt-2 text-[11px] text-slate-700 font-semibold border-t border-slate-100 flex items-center justify-between">
+                <span>Capacity: 1,200 Seats</span>
+                <span className="text-blue-700">Open-Air</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Venue 3: Seminar Hall */}
+          <div className="bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-xs hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between">
+            <div className="h-36 relative overflow-hidden bg-slate-900">
+              <img
+                src="https://images.unsplash.com/photo-1577495508048-b635879837f1?w=600&auto=format&fit=crop&q=80"
+                alt="Dr. S. Radhakrishnan Hall"
+                className="w-full h-full object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+              <span className="absolute top-2.5 left-2.5 text-[10px] font-bold px-2 py-0.5 rounded-full bg-blue-600 text-white">
+                1st Floor Wing
+              </span>
+            </div>
+            <div className="p-4 space-y-2 flex-1 flex flex-col justify-between">
+              <div>
+                <h4 className="font-bold text-sm text-slate-900">Dr. S. Radhakrishnan Hall</h4>
+                <p className="text-xs text-slate-500 mt-1 leading-relaxed">
+                  Tiered seminar hall equipped with high-resolution projection and dual wireless podium mics.
+                </p>
+              </div>
+              <div className="pt-2 text-[11px] text-slate-700 font-semibold border-t border-slate-100 flex items-center justify-between">
+                <span>Capacity: 180 Seats</span>
+                <span className="text-indigo-700">Tiered Seating</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Venue 4: CS & IT Lab */}
+          <div className="bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-xs hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between">
+            <div className="h-36 relative overflow-hidden bg-slate-900">
+              <img
+                src="https://images.unsplash.com/photo-1562774053-701939374585?w=600&auto=format&fit=crop&q=80"
+                alt="CS & IT Lab Complex"
+                className="w-full h-full object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+              <span className="absolute top-2.5 left-2.5 text-[10px] font-bold px-2 py-0.5 rounded-full bg-blue-600 text-white">
+                Science Wing
+              </span>
+            </div>
+            <div className="p-4 space-y-2 flex-1 flex flex-col justify-between">
+              <div>
+                <h4 className="font-bold text-sm text-slate-900">CS & IT Lab Complex</h4>
+                <p className="text-xs text-slate-500 mt-1 leading-relaxed">
+                  Advanced computing labs with high-speed fiber internet and uninterrupted dual-UPS power backup.
+                </p>
+              </div>
+              <div className="pt-2 text-[11px] text-slate-700 font-semibold border-t border-slate-100 flex items-center justify-between">
+                <span>Capacity: 120 PCs</span>
+                <span className="text-purple-700">Gigabit Fiber</span>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -680,67 +791,6 @@ export default function LandingPage() {
               <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
             </div>
           </Link>
-        </div>
-      </section>
-
-      {/* Campus Venues & Facilities Section */}
-      <section id="venues" className="py-14 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto">
-        <div className="text-center max-w-2xl mx-auto space-y-2 mb-10">
-          <span className="text-xs font-semibold text-blue-600 uppercase tracking-wider">
-            Campus Infrastructure
-          </span>
-          <h2 className="text-xl sm:text-2xl font-bold text-slate-900">
-            Iconic Ruia College Facilities
-          </h2>
-          <p className="text-xs text-slate-500">
-            State-of-the-art heritage and modern venues equipped for academic, technical, and cultural activities.
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-          <div className="p-5 bg-white border border-slate-200 rounded-2xl shadow-xs space-y-2 hover:border-blue-300 transition-colors">
-            <span className="text-[11px] font-bold text-blue-600 block uppercase tracking-wider">Heritage Main Building</span>
-            <h4 className="font-bold text-sm text-slate-900">Ruia College Auditorium</h4>
-            <p className="text-xs text-slate-500 leading-relaxed">
-              Air-conditioned auditorium with acoustic treatment, proscenium stage, and professional lighting.
-            </p>
-            <div className="pt-2 text-[11px] text-slate-700 font-semibold border-t border-slate-100">
-              Capacity: 650 Attendees
-            </div>
-          </div>
-
-          <div className="p-5 bg-white border border-slate-200 rounded-2xl shadow-xs space-y-2 hover:border-blue-300 transition-colors">
-            <span className="text-[11px] font-bold text-blue-600 block uppercase tracking-wider">Academic Quad</span>
-            <h4 className="font-bold text-sm text-slate-900">The Ruia Quadrangle</h4>
-            <p className="text-xs text-slate-500 leading-relaxed">
-              Iconic heritage open-air amphitheater hosting annual festivals, exhibitions, and college assemblies.
-            </p>
-            <div className="pt-2 text-[11px] text-slate-700 font-semibold border-t border-slate-100">
-              Capacity: 1,200 Attendees
-            </div>
-          </div>
-
-          <div className="p-5 bg-white border border-slate-200 rounded-2xl shadow-xs space-y-2 hover:border-blue-300 transition-colors">
-            <span className="text-[11px] font-bold text-blue-600 block uppercase tracking-wider">Main Academic Wing</span>
-            <h4 className="font-bold text-sm text-slate-900">Dr. S. Radhakrishnan Hall</h4>
-            <p className="text-xs text-slate-500 leading-relaxed">
-              Tiered seminar hall equipped with high-resolution projection and dual wireless podium mics.
-            </p>
-            <div className="pt-2 text-[11px] text-slate-700 font-semibold border-t border-slate-100">
-              Capacity: 180 Attendees
-            </div>
-          </div>
-
-          <div className="p-5 bg-white border border-slate-200 rounded-2xl shadow-xs space-y-2 hover:border-blue-300 transition-colors">
-            <span className="text-[11px] font-bold text-blue-600 block uppercase tracking-wider">Science & IT Wing</span>
-            <h4 className="font-bold text-sm text-slate-900">CS & IT Lab Complex</h4>
-            <p className="text-xs text-slate-500 leading-relaxed">
-              Advanced computing labs with high-speed fiber internet and uninterrupted dual-UPS power backup.
-            </p>
-            <div className="pt-2 text-[11px] text-slate-700 font-semibold border-t border-slate-100">
-              Capacity: 120 Workstations
-            </div>
-          </div>
         </div>
       </section>
 
