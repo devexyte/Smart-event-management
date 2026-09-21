@@ -3,20 +3,22 @@
 import React from 'react';
 import { useEvent } from '@/context/EventContext';
 import {
-  LayoutDashboard,
-  QrCode,
+  Compass,
+  Ticket,
+  Calendar,
+  Bookmark,
+  Award,
   Users,
-  UserPlus,
-  Send,
-  Bell,
-  Trophy,
-  ClipboardCheck,
-  BarChart3,
+  CalendarPlus,
+  QrCode,
+  UserCheck,
   Radio,
-  FileCode,
-  CheckCircle,
-  Clock,
-  Sparkles,
+  FileText,
+  Building2,
+  CheckSquare,
+  Layers,
+  BarChart3,
+  Code2,
 } from 'lucide-react';
 
 interface SidebarProps {
@@ -25,86 +27,127 @@ interface SidebarProps {
 }
 
 export const Sidebar: React.FC<SidebarProps> = ({ activeTab, setActiveTab }) => {
-  const { currentRole, announcements, stats, currentParticipant } = useEvent();
+  const { currentRole, registrations, currentUser, stats, events } = useEvent();
+
+  const userRegistrationsCount = registrations.filter(
+    (r) => r.studentId === currentUser.id && r.status !== 'cancelled'
+  ).length;
+
+  const userBookmarksCount = currentUser.bookmarkedEventIds?.length || 0;
 
   const getMenuItems = () => {
-    if (currentRole === 'participant') {
+    // 1. STUDENT MENU
+    if (currentRole === 'student' || currentRole === 'participant') {
       return [
-        { id: 'overview', label: 'Overview', icon: LayoutDashboard },
+        { id: 'catalogue', label: 'Event Catalogue', icon: Compass },
         {
-          id: 'qr-pass',
-          label: 'My QR Pass',
+          id: 'registrations',
+          label: 'My Registrations',
+          icon: Ticket,
+          badge: userRegistrationsCount > 0 ? `${userRegistrationsCount}` : undefined,
+          badgeColor: 'bg-blue-500/20 text-blue-300',
+        },
+        { id: 'calendar', label: 'Calendar & Schedule', icon: Calendar },
+        {
+          id: 'bookmarks',
+          label: 'Saved & Bookmarks',
+          icon: Bookmark,
+          badge: userBookmarksCount > 0 ? `${userBookmarksCount}` : undefined,
+          badgeColor: 'bg-slate-800 text-slate-300',
+        },
+        { id: 'certificates', label: 'My Certificates', icon: Award },
+        { id: 'hackathon-hub', label: 'Hackathon Project Hub', icon: Code2 },
+      ];
+    }
+
+    // 2. ORGANIZER MENU
+    if (currentRole === 'organizer') {
+      return [
+        { id: 'overview', label: 'Operations Overview', icon: BarChart3 },
+        {
+          id: 'events',
+          label: 'Events & Creation',
+          icon: CalendarPlus,
+          badge: `${events.length}`,
+          badgeColor: 'bg-emerald-500/20 text-emerald-300',
+        },
+        {
+          id: 'check-in',
+          label: 'QR Check-In Station',
           icon: QrCode,
-          badge: currentParticipant?.checkInStatus === 'checked_in' ? 'Verified' : 'Unchecked',
-          badgeColor: currentParticipant?.checkInStatus === 'checked_in' ? 'bg-emerald-500/20 text-emerald-300' : 'bg-amber-500/20 text-amber-300',
+          badge: `${stats.checkedInAttendees}/${stats.totalRegistrations}`,
+          badgeColor: 'bg-blue-500/20 text-blue-300',
         },
-        { id: 'matchmaker', label: 'Find Teammates', icon: UserPlus, highlight: true },
-        { id: 'my-team', label: 'My Team', icon: Users },
-        { id: 'submission', label: 'Project Submission', icon: Send },
-        {
-          id: 'announcements',
-          label: 'Announcements',
-          icon: Bell,
-          badge: `${announcements.length}`,
-          badgeColor: 'bg-indigo-500/20 text-indigo-300',
-        },
-        { id: 'leaderboard', label: 'Live Leaderboard', icon: Trophy },
+        { id: 'volunteers', label: 'Volunteer Management', icon: UserCheck },
+        { id: 'broadcast', label: 'Live Broadcast Center', icon: Radio },
+        { id: 'reports', label: 'Event Reports & Exports', icon: FileText },
+        { id: 'hackathon-oversight', label: 'Hackathon Oversight', icon: Code2 },
       ];
     }
 
-    if (currentRole === 'judge') {
-      return [
-        { id: 'overview', label: 'Judge Overview', icon: LayoutDashboard },
-        { id: 'assigned', label: 'Assigned Submissions', icon: FileCode, badge: `${stats.submissionsCount}`, badgeColor: 'bg-amber-500/20 text-amber-300' },
-        { id: 'matrix', label: 'Judging Progress', icon: ClipboardCheck },
-        { id: 'leaderboard', label: 'Live Leaderboard', icon: Trophy },
-      ];
-    }
-
-    // Organizer Menu
+    // 3. ADMIN MENU
     return [
-      { id: 'overview', label: 'Command Center', icon: LayoutDashboard },
+      { id: 'overview', label: 'Executive Dashboard', icon: BarChart3 },
       {
-        id: 'check-in',
-        label: 'Attendees & Check-in',
-        icon: QrCode,
-        badge: `${stats.checkedInCount}/${stats.totalRegistered}`,
-        badgeColor: 'bg-emerald-500/20 text-emerald-300',
+        id: 'approvals',
+        label: 'Event Approvals Queue',
+        icon: CheckSquare,
+        badge: stats.pendingApprovalsCount > 0 ? `${stats.pendingApprovalsCount}` : undefined,
+        badgeColor: 'bg-amber-500/20 text-amber-300 font-bold',
       },
-      { id: 'teams', label: 'Teams Management', icon: Users, badge: `${stats.teamsCount}` },
-      { id: 'submissions', label: 'Submissions Hub', icon: Send, badge: `${stats.submissionsCount}` },
-      { id: 'judging', label: 'Judging Oversight', icon: ClipboardCheck, badge: `${stats.judgingProgressPercentage}%` },
-      { id: 'broadcast', label: 'Broadcast Center', icon: Radio },
-      { id: 'analytics', label: 'Analytics Suite', icon: BarChart3 },
-      { id: 'leaderboard', label: 'Live Leaderboard', icon: Trophy },
+      { id: 'master-data', label: 'Categories & Venues', icon: Building2 },
+      { id: 'users', label: 'User & Account Admin', icon: Users },
+      { id: 'audit-reports', label: 'Audit Logs & Reports', icon: FileText },
     ];
   };
 
   const menuItems = getMenuItems();
 
+  const getRoleAccent = () => {
+    switch (currentRole) {
+      case 'student':
+        return {
+          badge: 'bg-blue-500/10 text-blue-400 border-blue-500/20',
+          activeItem: 'bg-blue-600 text-white font-semibold shadow-sm',
+          label: 'Student Portal',
+        };
+      case 'organizer':
+        return {
+          badge: 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20',
+          activeItem: 'bg-emerald-600 text-white font-semibold shadow-sm',
+          label: 'Organizer Suite',
+        };
+      case 'admin':
+        return {
+          badge: 'bg-amber-500/10 text-amber-400 border-amber-500/20',
+          activeItem: 'bg-amber-600 text-white font-semibold shadow-sm',
+          label: 'Principal & Admin',
+        };
+      default:
+        return {
+          badge: 'bg-slate-700 text-slate-300 border-slate-600',
+          activeItem: 'bg-slate-700 text-white',
+          label: 'Portal Mode',
+        };
+    }
+  };
+
+  const accent = getRoleAccent();
+
   return (
     <aside className="w-full lg:w-64 shrink-0">
-      <div className="bg-slate-900/60 border border-slate-800/80 rounded-2xl p-3 backdrop-blur-xl sticky top-20 shadow-xl">
-        {/* Role badge */}
-        <div className="px-3 py-2 mb-2 rounded-xl bg-slate-950/60 border border-slate-800/60 flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <span
-              className={`w-2 h-2 rounded-full ${
-                currentRole === 'participant'
-                  ? 'bg-indigo-400 shadow-sm shadow-indigo-400'
-                  : currentRole === 'judge'
-                  ? 'bg-amber-400 shadow-sm shadow-amber-400'
-                  : 'bg-emerald-400 shadow-sm shadow-emerald-400'
-              }`}
-            />
-            <span className="text-xs font-semibold uppercase tracking-wider text-slate-300">
-              {currentRole} Mode
-            </span>
-          </div>
-          <span className="text-[10px] text-slate-400 font-mono">TechNova 26</span>
+      <div className="bg-[#131d31] border border-slate-800 rounded-xl p-3 sticky top-20 shadow-sm">
+        {/* Active Role Label */}
+        <div className="px-3 py-2 mb-2 rounded-lg bg-slate-900/80 border border-slate-800/80 flex items-center justify-between">
+          <span className="text-xs font-semibold text-slate-200">
+            {accent.label}
+          </span>
+          <span className={`text-[10px] font-mono font-medium px-2 py-0.5 rounded border ${accent.badge}`}>
+            {currentRole.toUpperCase()}
+          </span>
         </div>
 
-        {/* Navigation Tabs */}
+        {/* Role Navigation Items */}
         <nav className="space-y-1">
           {menuItems.map((item) => {
             const Icon = item.icon;
@@ -114,35 +157,21 @@ export const Sidebar: React.FC<SidebarProps> = ({ activeTab, setActiveTab }) => 
               <button
                 key={item.id}
                 onClick={() => setActiveTab(item.id)}
-                className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-medium transition-all ${
+                className={`w-full flex items-center justify-between px-3 py-2.5 rounded-lg text-xs transition-colors ${
                   isActive
-                    ? currentRole === 'participant'
-                      ? 'bg-indigo-600/20 text-indigo-300 border border-indigo-500/30 shadow-md font-semibold'
-                      : currentRole === 'judge'
-                      ? 'bg-amber-600/20 text-amber-300 border border-amber-500/30 shadow-md font-semibold'
-                      : 'bg-emerald-600/20 text-emerald-300 border border-emerald-500/30 shadow-md font-semibold'
-                    : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/50 border border-transparent'
+                    ? accent.activeItem
+                    : 'text-slate-300 hover:text-white hover:bg-slate-800/80'
                 }`}
               >
-                <div className="flex items-center gap-3 truncate">
-                  <Icon
-                    className={`w-4 h-4 shrink-0 ${
-                      isActive
-                        ? currentRole === 'participant'
-                          ? 'text-indigo-400'
-                          : currentRole === 'judge'
-                          ? 'text-amber-400'
-                          : 'text-emerald-400'
-                        : 'text-slate-400'
-                    }`}
-                  />
+                <div className="flex items-center gap-2.5 truncate">
+                  <Icon className={`w-4 h-4 shrink-0 ${isActive ? 'text-white' : 'text-slate-400'}`} />
                   <span className="truncate">{item.label}</span>
                 </div>
 
                 {item.badge && (
                   <span
-                    className={`text-[10px] px-2 py-0.5 rounded-full font-mono font-medium shrink-0 ${
-                      item.badgeColor || 'bg-slate-800 text-slate-400'
+                    className={`text-[10px] px-2 py-0.5 rounded font-mono shrink-0 ${
+                      isActive ? 'bg-black/25 text-white' : item.badgeColor || 'bg-slate-800 text-slate-300'
                     }`}
                   >
                     {item.badge}
@@ -153,17 +182,15 @@ export const Sidebar: React.FC<SidebarProps> = ({ activeTab, setActiveTab }) => 
           })}
         </nav>
 
-        {/* Quick event stats pill */}
-        <div className="mt-4 pt-3 border-t border-slate-800/80 px-3 pb-1">
-          <div className="flex items-center justify-between text-[11px] text-slate-400 mb-1.5">
-            <span>Check-in Rate</span>
-            <span className="font-mono text-emerald-400 font-semibold">{stats.checkInPercentage}%</span>
+        {/* Quick Campus Info / Stats Pill */}
+        <div className="mt-4 pt-3 border-t border-slate-800/80 px-2 pb-1">
+          <div className="flex items-center justify-between text-[11px] text-slate-400 mb-1">
+            <span>Published Events</span>
+            <span className="font-semibold text-slate-200">{stats.publishedEvents}</span>
           </div>
-          <div className="w-full h-1.5 bg-slate-800 rounded-full overflow-hidden">
-            <div
-              className="h-full bg-gradient-to-r from-emerald-500 to-teal-400 rounded-full transition-all duration-500"
-              style={{ width: `${stats.checkInPercentage}%` }}
-            />
+          <div className="flex items-center justify-between text-[11px] text-slate-400">
+            <span>Overall Check-in</span>
+            <span className="font-semibold text-emerald-400">{stats.checkInPercentage}%</span>
           </div>
         </div>
       </div>

@@ -1,70 +1,158 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { useSearchParams } from 'next/navigation';
 import { useEvent } from '@/context/EventContext';
 import { Header } from '@/components/common/Header';
 import { Sidebar } from '@/components/common/Sidebar';
 
-// Participant Views
-import { ParticipantOverview } from '@/components/participant/ParticipantOverview';
-import { ParticipantPassQR } from '@/components/participant/ParticipantPassQR';
-import { TeammateMatchmaker } from '@/components/participant/TeammateMatchmaker';
-import { TeamHub } from '@/components/participant/TeamHub';
-import { SubmissionPortal } from '@/components/participant/SubmissionPortal';
-import { AnnouncementsFeed } from '@/components/participant/AnnouncementsFeed';
-import { LeaderboardView } from '@/components/participant/LeaderboardView';
+// Student Modules (FR7, FR8, FR9, FR10, FR11, FR15, FR17, FR18, FR19)
+import { EventCatalogue } from '@/components/student/EventCatalogue';
+import { MyRegistrations } from '@/components/student/MyRegistrations';
+import { EventCalendarView } from '@/components/student/EventCalendarView';
+import { BookmarkedEventsView } from '@/components/student/BookmarkedEventsView';
+import { MyCertificatesView } from '@/components/student/MyCertificatesView';
+import { EventDetailModal } from '@/components/student/EventDetailModal';
 
-// Judge Views
+// Organizer Modules (FR3, FR5, FR6, FR14, FR16, FR20, FR23, FR24, FR26)
+import { EventManagementHub } from '@/components/organizer/EventManagementHub';
+import { AttendeeCheckInStation } from '@/components/organizer/AttendeeCheckInStation';
+import { VolunteerManagement } from '@/components/organizer/VolunteerManagement';
+import { BroadcastCenter } from '@/components/organizer/BroadcastCenter';
+import { EventReportsModal } from '@/components/organizer/EventReportsModal';
+import { OrganizerOverview } from '@/components/organizer/OrganizerOverview';
+
+// Admin Modules (FR4, FR21, FR25, FR26, NFR9)
+import { EventApprovalsQueue } from '@/components/admin/EventApprovalsQueue';
+import { CategoryVenueManager } from '@/components/admin/CategoryVenueManager';
+import { UserAccountManager } from '@/components/admin/UserAccountManager';
+import { AdminAuditReports } from '@/components/admin/AdminAuditReports';
+
+// Hackathon Competition Hub (Integrated Sub-suite)
+import { ParticipantOverview } from '@/components/participant/ParticipantOverview';
+import { TeamHub } from '@/components/participant/TeamHub';
+import { TeammateMatchmaker } from '@/components/participant/TeammateMatchmaker';
+import { SubmissionPortal } from '@/components/participant/SubmissionPortal';
+import { LeaderboardView } from '@/components/participant/LeaderboardView';
 import { JudgeOverview } from '@/components/judge/JudgeOverview';
 import { AssignedSubmissions } from '@/components/judge/AssignedSubmissions';
 import { JudgingProgressMatrix } from '@/components/judge/JudgingProgressMatrix';
 import { ScoringStudioModal } from '@/components/judge/ScoringStudioModal';
-
-// Organizer Views
-import { OrganizerOverview } from '@/components/organizer/OrganizerOverview';
-import { AttendeeCheckInStation } from '@/components/organizer/AttendeeCheckInStation';
 import { TeamsManager } from '@/components/organizer/TeamsManager';
 import { SubmissionsReview } from '@/components/organizer/SubmissionsReview';
 import { JudgingOversight } from '@/components/organizer/JudgingOversight';
-import { BroadcastCenter } from '@/components/organizer/BroadcastCenter';
-import { AnalyticsSuite } from '@/components/organizer/AnalyticsSuite';
-import { OrganizerLeaderboard } from '@/components/organizer/OrganizerLeaderboard';
 
 export default function DashboardPage() {
-  const { currentRole } = useEvent();
-  const [activeTab, setActiveTab] = useState<string>('overview');
+  const { currentRole, registerForEvent, registrations, currentUser } = useEvent();
+  const [activeTab, setActiveTab] = useState<string>('catalogue');
+  const [activeDetailEvent, setActiveDetailEvent] = useState<any | null>(null);
   const [activeJudgeEvaluationId, setActiveJudgeEvaluationId] = useState<string | null>(null);
 
-  // When role switches, ensure activeTab resets cleanly if invalid for new role
+  // When role changes, set reasonable default tab
   useEffect(() => {
-    setActiveTab('overview');
+    if (currentRole === 'student' || currentRole === 'participant') {
+      setActiveTab('catalogue');
+    } else if (currentRole === 'organizer') {
+      setActiveTab('overview');
+    } else if (currentRole === 'admin') {
+      setActiveTab('overview');
+    } else if (currentRole === 'judge') {
+      setActiveTab('overview');
+    }
   }, [currentRole]);
 
+  const registeredEventIds = new Set(
+    registrations
+      .filter((r) => r.studentId === currentUser?.id && r.status !== 'cancelled')
+      .map((r) => r.eventId)
+  );
+
   const renderContent = () => {
-    // 1. Participant Experience
-    if (currentRole === 'participant') {
+    // -------------------------------------------------------------
+    // 1. STUDENT DASHBOARD EXPERIENCE (FR7 - FR13, FR15, FR17 - FR19)
+    // -------------------------------------------------------------
+    if (currentRole === 'student' || currentRole === 'participant') {
       switch (activeTab) {
-        case 'overview':
+        case 'catalogue':
+          return <EventCatalogue />;
+        case 'registrations':
+          return <MyRegistrations />;
+        case 'calendar':
+          return <EventCalendarView />;
+        case 'bookmarks':
+          return (
+            <BookmarkedEventsView
+              onOpenDetails={(evt) => setActiveDetailEvent(evt)}
+              onNavigateToCatalogue={() => setActiveTab('catalogue')}
+            />
+          );
+        case 'certificates':
+          return <MyCertificatesView />;
+        case 'hackathon-hub':
           return <ParticipantOverview setActiveTab={setActiveTab} />;
-        case 'qr-pass':
-          return <ParticipantPassQR />;
         case 'matchmaker':
           return <TeammateMatchmaker />;
         case 'my-team':
           return <TeamHub setActiveTab={setActiveTab} />;
         case 'submission':
           return <SubmissionPortal />;
-        case 'announcements':
-          return <AnnouncementsFeed />;
         case 'leaderboard':
           return <LeaderboardView />;
         default:
-          return <ParticipantOverview setActiveTab={setActiveTab} />;
+          return <EventCatalogue />;
       }
     }
 
-    // 2. Judge Experience
+    // -------------------------------------------------------------
+    // 2. ORGANIZER COMMAND EXPERIENCE (FR3, FR5, FR6, FR14, FR16, FR20, FR23, FR24)
+    // -------------------------------------------------------------
+    if (currentRole === 'organizer') {
+      switch (activeTab) {
+        case 'overview':
+          return <OrganizerOverview setActiveTab={setActiveTab} />;
+        case 'events':
+          return <EventManagementHub />;
+        case 'check-in':
+          return <AttendeeCheckInStation />;
+        case 'volunteers':
+          return <VolunteerManagement />;
+        case 'broadcast':
+          return <BroadcastCenter />;
+        case 'reports':
+          return <EventReportsModal />;
+        case 'hackathon-oversight':
+          return <JudgingOversight />;
+        case 'teams':
+          return <TeamsManager />;
+        case 'submissions':
+          return <SubmissionsReview />;
+        default:
+          return <OrganizerOverview setActiveTab={setActiveTab} />;
+      }
+    }
+
+    // -------------------------------------------------------------
+    // 3. ADMIN EXECUTIVE EXPERIENCE (FR4, FR21, FR23, FR25, FR26)
+    // -------------------------------------------------------------
+    if (currentRole === 'admin') {
+      switch (activeTab) {
+        case 'overview':
+          return <AdminAuditReports />;
+        case 'approvals':
+          return <EventApprovalsQueue />;
+        case 'master-data':
+          return <CategoryVenueManager />;
+        case 'users':
+          return <UserAccountManager />;
+        case 'audit-reports':
+          return <AdminAuditReports />;
+        default:
+          return <AdminAuditReports />;
+      }
+    }
+
+    // -------------------------------------------------------------
+    // 4. JURY EXPERIENCE (Retained Hackathon Rubric)
+    // -------------------------------------------------------------
     if (currentRole === 'judge') {
       switch (activeTab) {
         case 'overview':
@@ -90,48 +178,34 @@ export default function DashboardPage() {
       }
     }
 
-    // 3. Organizer Experience
-    if (currentRole === 'organizer') {
-      switch (activeTab) {
-        case 'overview':
-          return <OrganizerOverview setActiveTab={setActiveTab} />;
-        case 'check-in':
-          return <AttendeeCheckInStation />;
-        case 'teams':
-          return <TeamsManager />;
-        case 'submissions':
-          return <SubmissionsReview />;
-        case 'judging':
-          return <JudgingOversight />;
-        case 'broadcast':
-          return <BroadcastCenter />;
-        case 'analytics':
-          return <AnalyticsSuite />;
-        case 'leaderboard':
-          return <OrganizerLeaderboard />;
-        default:
-          return <OrganizerOverview setActiveTab={setActiveTab} />;
-      }
-    }
-
     return null;
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#080c15]">
+    <div className="min-h-screen flex flex-col bg-[#0b1120] text-slate-100">
       <Header activeTab={activeTab} setActiveTab={setActiveTab} />
 
       <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
         <div className="flex flex-col lg:flex-row gap-6">
-          {/* Left Sidebar navigation */}
+          {/* Left Navigation Sidebar */}
           <Sidebar activeTab={activeTab} setActiveTab={setActiveTab} />
 
-          {/* Right Main Content Panel */}
+          {/* Main Role Content View */}
           <div className="flex-1 min-w-0">{renderContent()}</div>
         </div>
       </main>
 
-      {/* Global Judge Scoring Studio Modal if open */}
+      {/* Global Event Detail Modal when active from bookmarks/calendar */}
+      {activeDetailEvent && (
+        <EventDetailModal
+          event={activeDetailEvent}
+          onClose={() => setActiveDetailEvent(null)}
+          onRegister={() => registerForEvent(activeDetailEvent.id)}
+          isRegistered={registeredEventIds.has(activeDetailEvent.id)}
+        />
+      )}
+
+      {/* Judge Studio Modal */}
       {activeJudgeEvaluationId && (
         <ScoringStudioModal
           submissionId={activeJudgeEvaluationId}

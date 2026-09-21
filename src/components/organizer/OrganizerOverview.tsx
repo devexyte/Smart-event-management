@@ -34,14 +34,10 @@ export const OrganizerOverview: React.FC<OrganizerOverviewProps> = ({ setActiveT
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 relative z-10">
           <div>
             <div className="flex items-center gap-2 mb-2">
-              <span className="px-3 py-1 rounded-full text-xs font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 flex items-center gap-1.5">
-                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
-                COMMAND HQ ACTIVE
-              </span>
               <span className="text-xs text-slate-400">{eventInfo.currentDay}</span>
             </div>
             <h1 className="text-2xl sm:text-3xl font-bold text-white tracking-tight">
-              {eventInfo.name} Command Center
+              {eventInfo.name} Operations Hub
             </h1>
             <p className="text-xs sm:text-sm text-slate-300 mt-1">
               {eventInfo.venue} • {eventInfo.dates} • Total Prize: <strong className="text-emerald-400">{eventInfo.prizePool}</strong>

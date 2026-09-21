@@ -54,7 +54,7 @@ export const BroadcastCenter: React.FC = () => {
         <div>
           <h2 className="text-xl font-bold text-white tracking-tight flex items-center gap-2">
             <Radio className="w-5 h-5 text-rose-400" />
-            Announcement & Broadcast Command Center
+            Announcement & Broadcast Center
           </h2>
           <p className="text-xs text-slate-400 mt-1">
             Dispatch urgent venue notices, schedule adjustments, and submission milestones directly to participant devices.
@@ -63,7 +63,7 @@ export const BroadcastCenter: React.FC = () => {
 
         <span className="text-xs px-3 py-1.5 rounded-full bg-rose-500/10 border border-rose-500/20 text-rose-300 font-mono self-start flex items-center gap-1.5">
           <span className="w-2 h-2 rounded-full bg-rose-400 animate-ping" />
-          Broadcast Transmitter Ready
+          Notification Service Active
         </span>
       </div>
 
