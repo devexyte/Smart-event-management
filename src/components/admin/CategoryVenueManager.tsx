@@ -119,7 +119,7 @@ export const CategoryVenueManager: React.FC = () => {
         <div>
           <h1 className="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight flex items-center gap-2.5">
             <Building2 className="w-6 h-6 text-blue-600" />
-            <span>Campus Category & Venue Registry (FR21)</span>
+            <span>Campus Venues & Categories Registry</span>
           </h1>
           <p className="text-xs sm:text-sm text-slate-500 mt-1">
             Maintain authorized event classifications and campus physical facilities, capacities, and specs.

@@ -29,7 +29,7 @@ export const AdminAuditReports: React.FC = () => {
         <div>
           <h1 className="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight flex items-center gap-2.5">
             <Shield className="w-6 h-6 text-blue-600" />
-            <span>Administrative Audit Log & System Intelligence (FR23, FR26, NFR9)</span>
+            <span>Administrative Audit Log & Campus Activity</span>
           </h1>
           <p className="text-xs sm:text-sm text-slate-500 mt-1">
             Official immutable audit trail of dean approvals, registration status changes, gate verifications, and operational metrics.
@@ -85,7 +85,7 @@ export const AdminAuditReports: React.FC = () => {
         <div className="flex items-center justify-between border-b border-slate-100 pb-3">
           <h3 className="text-sm font-bold text-slate-900 flex items-center gap-2">
             <Clock className="w-4 h-4 text-blue-600" />
-            <span>Campus Audit Action Log (NFR9)</span>
+            <span>Campus Audit Action Log</span>
           </h3>
           <span className="text-xs text-slate-500 font-mono bg-slate-100 px-2.5 py-1 rounded-lg border border-slate-200">
             Tamper-Evident History

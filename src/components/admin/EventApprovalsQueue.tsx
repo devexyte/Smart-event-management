@@ -49,7 +49,7 @@ export const EventApprovalsQueue: React.FC = () => {
         <div>
           <h1 className="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight flex items-center gap-2.5">
             <CheckSquare className="w-6 h-6 text-blue-600" />
-            <span>Event Approvals & Dean Oversight (FR4)</span>
+            <span>Event Approvals & Administrative Oversight</span>
           </h1>
           <p className="text-xs sm:text-sm text-slate-500 mt-1">
             Review proposed campus events, verify faculty safety standards and venue conflicts, and approve or reject submissions.

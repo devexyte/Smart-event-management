@@ -74,10 +74,10 @@ export const Header: React.FC<HeaderProps> = () => {
               <div>
                 <div className="flex items-center gap-2">
                   <span className="font-bold text-base tracking-tight text-slate-900">
-                    CampusFlow
+                    Ruia Campus Events
                   </span>
                   <span className="text-[10px] font-semibold px-2 py-0.5 rounded bg-blue-50 text-blue-700 border border-blue-200">
-                    Smart Event Portal
+                    Autonomous Portal
                   </span>
                 </div>
                 <p className="text-[11px] text-slate-500 hidden sm:block">
@@ -241,7 +241,7 @@ export const Header: React.FC<HeaderProps> = () => {
               {showPersonaMenu && (
                 <div className="absolute right-0 mt-2 w-72 bg-white border border-slate-200 rounded-2xl shadow-xl py-2 z-50">
                   <div className="px-3 py-1.5 border-b border-slate-100 text-[11px] font-semibold text-slate-500 uppercase tracking-wider">
-                    Switch Active Persona (Testing)
+                    Switch User Profile
                   </div>
 
                   <div className="max-h-72 overflow-y-auto py-1">

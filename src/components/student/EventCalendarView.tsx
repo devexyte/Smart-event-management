@@ -38,7 +38,7 @@ export const EventCalendarView: React.FC = () => {
         <div>
           <h1 className="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight flex items-center gap-2.5">
             <CalendarIcon className="w-6 h-6 text-blue-600" />
-            <span>Event Calendar & Schedule Timeline (FR11)</span>
+            <span>Event Calendar & Schedule Timeline</span>
           </h1>
           <p className="text-xs sm:text-sm text-slate-500 mt-1">
             Chronological schedule of all official campus dates, session breakdowns, stages, and activity timelines.

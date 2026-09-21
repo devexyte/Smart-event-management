@@ -325,7 +325,7 @@ export const MyRegistrations: React.FC = () => {
           <div className="bg-white border border-slate-200 rounded-2xl max-w-md w-full p-6 shadow-2xl space-y-4">
             <div className="flex items-center gap-2 text-rose-600">
               <AlertTriangle className="w-5 h-5" />
-              <h3 className="font-bold text-base text-slate-900">Cancel Registration (FR10)</h3>
+              <h3 className="font-bold text-base text-slate-900">Cancel Registration</h3>
             </div>
             <p className="text-xs text-slate-600 leading-relaxed">
               Are you sure you want to cancel your registration for{' '}

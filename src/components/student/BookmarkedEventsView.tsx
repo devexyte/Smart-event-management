@@ -31,7 +31,7 @@ export const BookmarkedEventsView: React.FC<BookmarkedEventsViewProps> = ({
         <div>
           <h1 className="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight flex items-center gap-2.5">
             <Bookmark className="w-6 h-6 text-amber-500" />
-            <span>Saved & Bookmarked Events (FR19)</span>
+            <span>Saved & Bookmarked Events</span>
           </h1>
           <p className="text-xs sm:text-sm text-slate-500 mt-1">
             Keep track of upcoming campus events, seminars, and competitions you plan to register for.

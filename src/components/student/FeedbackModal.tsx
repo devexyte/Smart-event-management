@@ -64,7 +64,7 @@ export const FeedbackModal: React.FC<FeedbackModalProps> = ({
           <div>
             <h3 className="text-base font-bold text-slate-900 flex items-center gap-2">
               <Star className="w-4 h-4 text-amber-500" />
-              Event Feedback & Rating (FR18)
+              Event Feedback & Rating
             </h3>
             <p className="text-xs text-slate-500 mt-0.5 truncate max-w-sm">
               {eventTitle}

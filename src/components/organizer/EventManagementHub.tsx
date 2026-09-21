@@ -53,7 +53,7 @@ export const EventManagementHub: React.FC = () => {
         <div>
           <h1 className="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight flex items-center gap-2.5">
             <CalendarPlus className="w-6 h-6 text-blue-600" />
-            <span>Event Management & Lifecycle (FR3, FR5, FR6, FR24)</span>
+            <span>Event Management & Operations</span>
           </h1>
           <p className="text-xs sm:text-sm text-slate-500 mt-1">
             Create draft events, request administrative approvals, update schedules, and manage the event lifecycle.
@@ -68,7 +68,7 @@ export const EventManagementHub: React.FC = () => {
           className="px-4 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold shadow-xs transition-colors flex items-center gap-2 self-start sm:self-auto shrink-0"
         >
           <Plus className="w-4 h-4" />
-          <span>Create New Event (FR3)</span>
+          <span>Create New Event</span>
         </button>
       </div>
 
@@ -192,7 +192,7 @@ export const EventManagementHub: React.FC = () => {
                     className="px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-medium border border-slate-200 transition-colors flex items-center gap-1.5"
                   >
                     <Edit3 className="w-3.5 h-3.5 text-slate-500" />
-                    <span>Edit (FR5)</span>
+                    <span>Edit Event</span>
                   </button>
 
                   {/* Submit for Approval if in draft or rejected */}

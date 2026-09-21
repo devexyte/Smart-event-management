@@ -163,7 +163,7 @@ export const EventDetailModal: React.FC<EventDetailModalProps> = ({
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
               <div>
                 <span className="text-[10px] uppercase font-bold text-blue-800 tracking-wider">
-                  Event Organizer Contact (FR13)
+                  Event Coordinator Contact
                 </span>
                 <p className="text-sm font-semibold text-slate-900 mt-0.5">
                   {event.organizerContact?.name || event.organizerName}

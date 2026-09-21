@@ -42,7 +42,7 @@ export const UserAccountManager: React.FC = () => {
         <div>
           <h1 className="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight flex items-center gap-2.5">
             <Users className="w-6 h-6 text-blue-600" />
-            <span>Campus User & Role Administration (FR25)</span>
+            <span>Campus User & Role Administration</span>
           </h1>
           <p className="text-xs sm:text-sm text-slate-500 mt-1">
             Manage student registrations, grant organizer permissions, assign administrative privileges, and manage account statuses.
@@ -94,7 +94,7 @@ export const UserAccountManager: React.FC = () => {
                 <th className="py-2.5 px-3">User Profile</th>
                 <th className="py-2.5 px-3">Department</th>
                 <th className="py-2.5 px-3">Student / Staff ID</th>
-                <th className="py-2.5 px-3">Role Authorization (FR25)</th>
+                <th className="py-2.5 px-3">Role Authorization</th>
                 <th className="py-2.5 px-3">Status</th>
                 <th className="py-2.5 px-3 text-right">Account Control</th>
               </tr>

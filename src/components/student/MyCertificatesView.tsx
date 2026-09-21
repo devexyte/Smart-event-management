@@ -20,7 +20,7 @@ export const MyCertificatesView: React.FC = () => {
         <div>
           <h1 className="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight flex items-center gap-2.5">
             <Award className="w-6 h-6 text-blue-600" />
-            <span>My Verified Digital Certificates (FR17)</span>
+            <span>My Verified Digital Certificates</span>
           </h1>
           <p className="text-xs sm:text-sm text-slate-500 mt-1">
             Official verifiable credentials issued by Ramnarain Ruia Autonomous College for attended and completed campus events.

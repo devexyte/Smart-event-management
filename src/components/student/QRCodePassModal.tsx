@@ -26,7 +26,7 @@ export const QRCodePassModal: React.FC<QRCodePassModalProps> = ({
           <div className="flex items-center gap-2">
             <QrCode className="w-5 h-5 text-blue-600" />
             <h3 className="font-bold text-slate-900 text-base">
-              Digital Entrance QR Pass (FR15)
+              Digital Entrance Pass
             </h3>
           </div>
           <button

@@ -371,7 +371,7 @@ export const EventCreationModal: React.FC<EventCreationModalProps> = ({
               className="px-5 py-2 rounded-lg bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold shadow-xs transition-colors flex items-center gap-1.5"
             >
               <CheckCircle2 className="w-3.5 h-3.5" />
-              <span>{isEditing ? 'Save & Submit' : 'Submit for Admin Approval (FR4)'}</span>
+              <span>{isEditing ? 'Save & Submit' : 'Submit for Approval'}</span>
             </button>
           </div>
         </div>

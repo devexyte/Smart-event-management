@@ -82,7 +82,7 @@ export const AttendeeCheckInStation: React.FC = () => {
         <div>
           <h1 className="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight flex items-center gap-2.5">
             <QrCode className="w-6 h-6 text-blue-600" />
-            <span>Gate QR Scanner & Attendance Verification (FR16)</span>
+            <span>Gate QR Scanner & Attendance Verification</span>
           </h1>
           <p className="text-xs sm:text-sm text-slate-500 mt-1">
             Real-time registration token verification, duplicate prevention, and attendance recording.

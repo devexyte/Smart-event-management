@@ -25,7 +25,7 @@ export const CertificateModal: React.FC<CertificateModalProps> = ({
           <div className="flex items-center gap-2">
             <Award className="w-5 h-5 text-amber-500" />
             <h3 className="font-bold text-slate-900 text-base">
-              Digital Certificate of Participation (FR17)
+              Certificate of Participation
             </h3>
           </div>
           <button
