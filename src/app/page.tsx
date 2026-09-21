@@ -39,7 +39,7 @@ export default function LandingPage() {
   const [activeCategory, setActiveCategory] = useState('all');
 
   const publishedEvents = events.filter((e) => e.status === 'published');
-  
+
   // Filter events by search query and category
   const filteredEvents = publishedEvents.filter((event) => {
     if (activeCategory !== 'all' && event.category.toLowerCase() !== activeCategory.toLowerCase()) {
@@ -156,15 +156,15 @@ export default function LandingPage() {
           {/* Smart Event Management Title */}
           <div className="space-y-2">
             <h1 className="text-3xl sm:text-5xl font-extrabold text-slate-900 tracking-tight">
-              Smart Event Management
+              Smart College Event Management
             </h1>
             <p className="text-base sm:text-xl font-semibold text-blue-700">
-              Official Campus Events, Festivals & Academic Symposiums Portal
+              Official Campus Events, Festivals & Competitions Management
             </p>
           </div>
 
           <p className="text-xs sm:text-sm text-slate-600 max-w-2xl mx-auto leading-relaxed">
-            The official centralized platform for Ramnarain Ruia Autonomous College, Matunga. Discover academic symposiums, department fests, competitive hackathons, and guest lectures with instant digital QR passes, live organizer announcements, and verified credentials.
+            The official centralized platform for Ramnarain Ruia Autonomous College, Matunga. Discover department fests, competitive hackathons, and guest lectures with instant digital QR passes, live organizer announcements, and verified credentials.
           </p>
 
           {/* Action Buttons */}
@@ -240,11 +240,10 @@ export default function LandingPage() {
                   <button
                     key={cat.id}
                     onClick={() => setActiveCategory(cat.id)}
-                    className={`px-3 py-1 rounded-lg text-xs font-medium whitespace-nowrap transition-all cursor-pointer ${
-                      activeCategory === cat.id
-                        ? 'bg-blue-600 text-white shadow-2xs font-semibold'
-                        : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
-                    }`}
+                    className={`px-3 py-1 rounded-lg text-xs font-medium whitespace-nowrap transition-all cursor-pointer ${activeCategory === cat.id
+                      ? 'bg-blue-600 text-white shadow-2xs font-semibold'
+                      : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                      }`}
                   >
                     {cat.label}
                   </button>
@@ -451,7 +450,7 @@ export default function LandingPage() {
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
-                    
+
                     {/* Date Badge */}
                     <div className="absolute top-3 left-3 bg-white/95 backdrop-blur-md rounded-xl px-2.5 py-1 text-center shadow-xs">
                       <span className="text-[10px] font-bold text-blue-700 block uppercase leading-tight">

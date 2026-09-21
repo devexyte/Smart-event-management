@@ -204,16 +204,36 @@ export const MyRegistrations: React.FC = () => {
                     </div>
 
                     {/* Payment status line (FR22) */}
-                    <div className="text-[11px] text-slate-500 flex items-center gap-2 pt-1">
-                      <CreditCard className="w-3.5 h-3.5 text-slate-400" />
-                      <span>
-                        Payment:{' '}
-                        <strong className="text-slate-800 uppercase font-mono">
-                          {reg.paymentStatus} {reg.paymentAmount > 0 ? `(₹${reg.paymentAmount})` : '(Free)'}
-                        </strong>
-                      </span>
+                    <div className="text-[11px] text-slate-500 flex flex-wrap items-center gap-2.5 pt-1">
+                      <div className="flex items-center gap-1.5">
+                        <CreditCard className="w-3.5 h-3.5 text-slate-400" />
+                        <span>
+                          Payment:{' '}
+                          <strong className="text-slate-800 uppercase font-mono">
+                            {reg.paymentStatus} {reg.paymentAmount > 0 ? `(₹${reg.paymentAmount})` : '(Free)'}
+                          </strong>
+                          {reg.paymentMethod && <span className="ml-1 text-slate-500">via {reg.paymentMethod}</span>}
+                        </span>
+                      </div>
                       {reg.transactionRef && (
-                        <span className="font-mono text-slate-400">Ref: {reg.transactionRef}</span>
+                        <span className="font-mono text-slate-500 bg-slate-50 px-1.5 py-0.5 rounded border border-slate-200">
+                          Ref: {reg.transactionRef}
+                        </span>
+                      )}
+                      {reg.department && (
+                        <span className="text-slate-600 bg-slate-100 px-1.5 py-0.5 rounded text-[10px]">
+                          {reg.department}
+                        </span>
+                      )}
+                      {reg.dietaryPreference && (
+                        <span className="capitalize text-slate-600 bg-slate-100 px-1.5 py-0.5 rounded text-[10px]">
+                          Meal: {reg.dietaryPreference}
+                        </span>
+                      )}
+                      {reg.teamName && (
+                        <span className="text-purple-700 font-medium bg-purple-50 px-1.5 py-0.5 rounded text-[10px]">
+                          Team: {reg.teamName}
+                        </span>
                       )}
                     </div>
 

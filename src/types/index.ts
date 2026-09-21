@@ -94,6 +94,11 @@ export interface RegistrationRecord {
   feedbackComment?: string;
   certificateId?: string;
   certificateIssuedAt?: string;
+  paymentMethod?: string;
+  department?: string;
+  phone?: string;
+  dietaryPreference?: string;
+  teamName?: string;
 }
 
 export interface CategoryItem {

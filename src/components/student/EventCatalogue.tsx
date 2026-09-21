@@ -20,6 +20,7 @@ import {
   Bell,
 } from 'lucide-react';
 import { EventDetailModal } from './EventDetailModal';
+import { EventRegistrationModal } from './EventRegistrationModal';
 
 export const EventCatalogue: React.FC = () => {
   const {
@@ -38,6 +39,7 @@ export const EventCatalogue: React.FC = () => {
   const [selectedVenue, setSelectedVenue] = useState<string>('all');
   const [selectedPriceFilter, setSelectedPriceFilter] = useState<'all' | 'free' | 'paid'>('all');
   const [activeDetailEvent, setActiveDetailEvent] = useState<EventItem | null>(null);
+  const [registeringEvent, setRegisteringEvent] = useState<EventItem | null>(null);
 
   // User registrations set for quick lookup
   const registeredEventIds = new Set(
@@ -348,8 +350,8 @@ export const EventCatalogue: React.FC = () => {
                       <span className="text-[11px] text-rose-600 font-medium">Full</span>
                     ) : (
                       <button
-                        onClick={() => registerForEvent(event.id)}
-                        className="px-3.5 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold shadow-xs transition-colors flex items-center gap-1.5"
+                        onClick={() => setRegisteringEvent(event)}
+                        className="px-3.5 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold shadow-xs transition-colors flex items-center gap-1.5 cursor-pointer"
                       >
                         <Ticket className="w-3.5 h-3.5" />
                         <span>Register</span>
@@ -368,10 +370,17 @@ export const EventCatalogue: React.FC = () => {
         <EventDetailModal
           event={activeDetailEvent}
           onClose={() => setActiveDetailEvent(null)}
-          onRegister={() => registerForEvent(activeDetailEvent.id)}
+          onRegister={() => setRegisteringEvent(activeDetailEvent)}
           isRegistered={registeredEventIds.has(activeDetailEvent.id)}
         />
       )}
+
+      {/* Event Registration & Payment Modal */}
+      <EventRegistrationModal
+        event={registeringEvent}
+        isOpen={!!registeringEvent}
+        onClose={() => setRegisteringEvent(null)}
+      />
     </div>
   );
 };

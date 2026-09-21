@@ -86,7 +86,20 @@ interface EventContextType {
 
   // Student Registrations & QR Check-in
   registrations: RegistrationRecord[];
-  registerForEvent: (eventId: string, extra?: { studentIdNumber?: string }) => { success: boolean; message: string };
+  registerForEvent: (
+    eventId: string,
+    extra?: {
+      studentIdNumber?: string;
+      studentName?: string;
+      studentEmail?: string;
+      department?: string;
+      phone?: string;
+      dietaryPreference?: string;
+      teamName?: string;
+      paymentMethod?: string;
+      transactionRef?: string;
+    }
+  ) => { success: boolean; message: string; registration?: RegistrationRecord };
   cancelRegistration: (registrationId: string, reason?: string) => void;
   updatePaymentStatus: (registrationId: string, status: PaymentStatus) => void;
   checkInWithQR: (qrToken: string, eventId?: string) => { success: boolean; message: string; registration?: RegistrationRecord };
@@ -589,8 +602,18 @@ export function EventProvider({ children }: { children: ReactNode }) {
   // -------------------------------------------------------------
   const registerForEvent = (
     eventId: string,
-    extra?: { studentIdNumber?: string }
-  ): { success: boolean; message: string } => {
+    extra?: {
+      studentIdNumber?: string;
+      studentName?: string;
+      studentEmail?: string;
+      department?: string;
+      phone?: string;
+      dietaryPreference?: string;
+      teamName?: string;
+      paymentMethod?: string;
+      transactionRef?: string;
+    }
+  ): { success: boolean; message: string; registration?: RegistrationRecord } => {
     const event = events.find((e) => e.id === eventId);
     if (!event) return { success: false, message: 'Event not found.' };
 
@@ -612,7 +635,9 @@ export function EventProvider({ children }: { children: ReactNode }) {
 
     const regId = `reg-${Date.now()}`;
     const studentIdNumber = extra?.studentIdNumber || currentUser.studentIdNumber || 'RUIA-2026-STU';
-    const qrToken = `RUIA26-${event.id.toUpperCase()}-${currentUser.name.split(' ')[0].toUpperCase()}-${studentIdNumber}`;
+    const studentName = extra?.studentName || currentUser.name;
+    const studentEmail = extra?.studentEmail || currentUser.email;
+    const qrToken = `RUIA26-${event.id.toUpperCase()}-${studentName.split(' ')[0].toUpperCase()}-${studentIdNumber}`;
 
     const newRegistration: RegistrationRecord = {
       id: regId,
@@ -622,8 +647,8 @@ export function EventProvider({ children }: { children: ReactNode }) {
       eventDate: new Date(event.startDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
       eventVenue: event.venueName,
       studentId: currentUser.id,
-      studentName: currentUser.name,
-      studentEmail: currentUser.email,
+      studentName,
+      studentEmail,
       studentIdNumber,
       registrationDate: new Date().toISOString(),
       status: 'confirmed',
@@ -631,7 +656,12 @@ export function EventProvider({ children }: { children: ReactNode }) {
       checkInStatus: 'not_checked_in',
       paymentStatus: event.price > 0 ? 'paid' : 'free',
       paymentAmount: event.price,
-      transactionRef: event.price > 0 ? `TXN-${Math.floor(100000000 + Math.random() * 900000000)}-PAY` : undefined,
+      transactionRef: extra?.transactionRef || (event.price > 0 ? `TXN-${Math.floor(100000000 + Math.random() * 900000000)}-PAY` : undefined),
+      paymentMethod: extra?.paymentMethod,
+      department: extra?.department,
+      phone: extra?.phone,
+      dietaryPreference: extra?.dietaryPreference,
+      teamName: extra?.teamName,
     };
 
     setRegistrations((prev) => [newRegistration, ...prev]);
@@ -654,7 +684,7 @@ export function EventProvider({ children }: { children: ReactNode }) {
 
     playChime('success');
     addToast('Registration Confirmed! 🎉', `You are registered for "${event.title}". Access your pass in My Registrations.`, 'success');
-    return { success: true, message: 'Registration successful!' };
+    return { success: true, message: 'Registration successful!', registration: newRegistration };
   };
 
   const cancelRegistration = (registrationId: string, reason?: string) => {

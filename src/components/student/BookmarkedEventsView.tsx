@@ -1,8 +1,10 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import { useEvent } from '@/context/EventContext';
 import { Bookmark, Calendar, MapPin, Ticket, Eye, Trash2 } from 'lucide-react';
+import { EventItem } from '@/types';
+import { EventRegistrationModal } from './EventRegistrationModal';
 
 interface BookmarkedEventsViewProps {
   onOpenDetails: (event: any) => void;
@@ -14,6 +16,7 @@ export const BookmarkedEventsView: React.FC<BookmarkedEventsViewProps> = ({
   onNavigateToCatalogue,
 }) => {
   const { events, currentUser, toggleBookmark, registerForEvent, registrations } = useEvent();
+  const [registeringEvent, setRegisteringEvent] = useState<EventItem | null>(null);
 
   const bookmarkedIds = new Set(currentUser.bookmarkedEventIds || []);
   const bookmarkedEvents = events.filter((e) => bookmarkedIds.has(e.id));
@@ -130,8 +133,8 @@ export const BookmarkedEventsView: React.FC<BookmarkedEventsViewProps> = ({
                       </span>
                     ) : (
                       <button
-                        onClick={() => registerForEvent(event.id)}
-                        className="px-3.5 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold shadow-xs transition-colors flex items-center gap-1.5"
+                        onClick={() => setRegisteringEvent(event)}
+                        className="px-3.5 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold shadow-xs transition-colors flex items-center gap-1.5 cursor-pointer"
                       >
                         <Ticket className="w-3.5 h-3.5" />
                         <span>Register</span>
@@ -144,6 +147,13 @@ export const BookmarkedEventsView: React.FC<BookmarkedEventsViewProps> = ({
           })}
         </div>
       )}
+
+      {/* Event Registration & Payment Modal */}
+      <EventRegistrationModal
+        event={registeringEvent}
+        isOpen={!!registeringEvent}
+        onClose={() => setRegisteringEvent(null)}
+      />
     </div>
   );
 };

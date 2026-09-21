@@ -90,6 +90,12 @@ export const QRCodePassModal: React.FC<QRCodePassModalProps> = ({
                 {registration.checkInStatus === 'checked_in' ? 'Checked-In ✓' : 'Confirmed Entry'}
               </span>
             </div>
+            {registration.paymentAmount > 0 && (
+              <div className="col-span-2 pt-2 border-t border-dashed border-slate-200 flex items-center justify-between text-[11px]">
+                <span className="text-slate-600 font-medium">Fee Paid: ₹{registration.paymentAmount} ({registration.paymentMethod || 'Online'})</span>
+                <span className="font-mono text-emerald-700 font-semibold">{registration.transactionRef}</span>
+              </div>
+            )}
           </div>
         </div>
 

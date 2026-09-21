@@ -12,6 +12,7 @@ import { EventCalendarView } from '@/components/student/EventCalendarView';
 import { BookmarkedEventsView } from '@/components/student/BookmarkedEventsView';
 import { MyCertificatesView } from '@/components/student/MyCertificatesView';
 import { EventDetailModal } from '@/components/student/EventDetailModal';
+import { EventRegistrationModal } from '@/components/student/EventRegistrationModal';
 
 // Organizer Modules (FR3, FR5, FR6, FR14, FR16, FR20, FR23, FR24, FR26)
 import { EventManagementHub } from '@/components/organizer/EventManagementHub';
@@ -46,6 +47,7 @@ export default function DashboardPage() {
   const { currentRole, registerForEvent, registrations, currentUser } = useEvent();
   const [activeTab, setActiveTab] = useState<string>('catalogue');
   const [activeDetailEvent, setActiveDetailEvent] = useState<any | null>(null);
+  const [registeringEvent, setRegisteringEvent] = useState<any | null>(null);
   const [activeJudgeEvaluationId, setActiveJudgeEvaluationId] = useState<string | null>(null);
 
   // When role changes, set reasonable default tab
@@ -203,10 +205,17 @@ export default function DashboardPage() {
         <EventDetailModal
           event={activeDetailEvent}
           onClose={() => setActiveDetailEvent(null)}
-          onRegister={() => registerForEvent(activeDetailEvent.id)}
+          onRegister={() => setRegisteringEvent(activeDetailEvent)}
           isRegistered={registeredEventIds.has(activeDetailEvent.id)}
         />
       )}
+
+      {/* Event Registration & Payment Modal */}
+      <EventRegistrationModal
+        event={registeringEvent}
+        isOpen={!!registeringEvent}
+        onClose={() => setRegisteringEvent(null)}
+      />
 
       {/* Judge Studio Modal */}
       {activeJudgeEvaluationId && (

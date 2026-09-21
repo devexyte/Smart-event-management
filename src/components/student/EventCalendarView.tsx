@@ -13,11 +13,13 @@ import {
   Eye,
 } from 'lucide-react';
 import { EventDetailModal } from './EventDetailModal';
+import { EventRegistrationModal } from './EventRegistrationModal';
 
 export const EventCalendarView: React.FC = () => {
   const { events, registerForEvent, registrations, currentUser } = useEvent();
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [activeEventModal, setActiveEventModal] = useState<EventItem | null>(null);
+  const [registeringEvent, setRegisteringEvent] = useState<EventItem | null>(null);
 
   // Filter published events and sort by date ascending
   const publishedEvents = events
@@ -163,10 +165,17 @@ export const EventCalendarView: React.FC = () => {
         <EventDetailModal
           event={activeEventModal}
           onClose={() => setActiveEventModal(null)}
-          onRegister={() => registerForEvent(activeEventModal.id)}
+          onRegister={() => setRegisteringEvent(activeEventModal)}
           isRegistered={registeredEventIds.has(activeEventModal.id)}
         />
       )}
+
+      {/* Event Registration & Payment Modal */}
+      <EventRegistrationModal
+        event={registeringEvent}
+        isOpen={!!registeringEvent}
+        onClose={() => setRegisteringEvent(null)}
+      />
     </div>
   );
 };
