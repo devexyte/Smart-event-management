@@ -60,6 +60,13 @@ interface EventContextType {
   users: UserAccount[];
   updateUserRole: (userId: string, newRole: 'student' | 'organizer' | 'admin') => void;
   toggleUserStatus: (userId: string) => void;
+  registerStudentAccount: (data: {
+    name: string;
+    email: string;
+    studentIdNumber: string;
+    department: string;
+    phone?: string;
+  }) => { success: boolean; message: string; user?: UserAccount };
 
   // Master Data & Events
   events: EventItem[];
@@ -317,6 +324,64 @@ export function EventProvider({ children }: { children: ReactNode }) {
         return u;
       })
     );
+  };
+
+  const registerStudentAccount = (data: {
+    name: string;
+    email: string;
+    studentIdNumber: string;
+    department: string;
+    phone?: string;
+  }): { success: boolean; message: string; user?: UserAccount } => {
+    // Check if email or roll number already registered
+    const existing = users.find(
+      (u) =>
+        u.email.toLowerCase() === data.email.toLowerCase() ||
+        u.studentIdNumber?.toUpperCase() === data.studentIdNumber.trim().toUpperCase()
+    );
+    if (existing) {
+      return {
+        success: false,
+        message: 'An account with this email address or Student ID number already exists.',
+      };
+    }
+
+    const newId = `usr-student-${Date.now()}`;
+    const newUser: UserAccount = {
+      id: newId,
+      name: data.name.trim(),
+      email: data.email.trim(),
+      role: 'student',
+      department: data.department.trim(),
+      avatar: `https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80`,
+      status: 'active',
+      phone: data.phone?.trim() || '+91 98200 12345',
+      studentIdNumber: data.studentIdNumber.trim().toUpperCase(),
+      bookmarkedEventIds: [],
+    };
+
+    setUsers((prev) => [...prev, newUser]);
+    setCurrentUserId(newId);
+    setCurrentRole('student');
+
+    const welcomeNotif: NotificationItem = {
+      id: `notif-${Date.now()}`,
+      title: 'Welcome to Ramnarain Ruia Portal!',
+      message: `Welcome, ${newUser.name}! Your student profile has been registered. You can now browse events, claim QR passes, and download certificates.`,
+      type: 'general',
+      timestamp: new Date().toISOString(),
+      read: false,
+    };
+    setNotifications((prev) => [welcomeNotif, ...prev]);
+
+    playChime('success');
+    addToast('Student Account Created! 🎉', `Welcome, ${newUser.name}! You are now logged in.`, 'success');
+
+    return {
+      success: true,
+      message: 'Student account created successfully!',
+      user: newUser,
+    };
   };
 
   // -------------------------------------------------------------
@@ -1008,6 +1073,7 @@ export function EventProvider({ children }: { children: ReactNode }) {
         users,
         updateUserRole,
         toggleUserStatus,
+        registerStudentAccount,
         events,
         categories,
         venues,

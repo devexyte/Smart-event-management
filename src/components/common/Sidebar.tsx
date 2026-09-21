@@ -19,6 +19,7 @@ import {
   Layers,
   BarChart3,
   Code2,
+  Bell,
 } from 'lucide-react';
 
 interface SidebarProps {
@@ -27,13 +28,14 @@ interface SidebarProps {
 }
 
 export const Sidebar: React.FC<SidebarProps> = ({ activeTab, setActiveTab }) => {
-  const { currentRole, registrations, currentUser, stats, events } = useEvent();
+  const { currentRole, registrations, currentUser, stats, events, announcements } = useEvent();
 
   const userRegistrationsCount = registrations.filter(
     (r) => r.studentId === currentUser.id && r.status !== 'cancelled'
   ).length;
 
   const userBookmarksCount = currentUser.bookmarkedEventIds?.length || 0;
+  const announcementsCount = announcements?.length || 0;
 
   const getMenuItems = () => {
     // 1. STUDENT MENU
@@ -46,6 +48,13 @@ export const Sidebar: React.FC<SidebarProps> = ({ activeTab, setActiveTab }) => 
           icon: Ticket,
           badge: userRegistrationsCount > 0 ? `${userRegistrationsCount}` : undefined,
           badgeColor: 'bg-blue-50 text-blue-700 border border-blue-200',
+        },
+        {
+          id: 'notices',
+          label: 'Notices & Alerts',
+          icon: Bell,
+          badge: announcementsCount > 0 ? `${announcementsCount}` : undefined,
+          badgeColor: 'bg-amber-50 text-amber-700 border border-amber-200',
         },
         { id: 'calendar', label: 'Calendar & Schedule', icon: Calendar },
         {

@@ -17,8 +17,10 @@ import {
   ExternalLink,
   Shield,
   User,
+  UserPlus,
 } from 'lucide-react';
 import { formatTimeAgo } from '@/lib/utils';
+import { StudentRegistrationModal } from './StudentRegistrationModal';
 
 interface HeaderProps {
   activeTab?: string;
@@ -41,6 +43,7 @@ export const Header: React.FC<HeaderProps> = () => {
 
   const [showPersonaMenu, setShowPersonaMenu] = useState(false);
   const [showNotifications, setShowNotifications] = useState(false);
+  const [showRegistrationModal, setShowRegistrationModal] = useState(false);
 
   const personaRef = useRef<HTMLDivElement>(null);
   const notifRef = useRef<HTMLDivElement>(null);
@@ -276,7 +279,17 @@ export const Header: React.FC<HeaderProps> = () => {
                     ))}
                   </div>
 
-                  <div className="p-2 border-t border-slate-100 mt-1 bg-slate-50/50">
+                  <div className="p-2 border-t border-slate-100 mt-1 bg-slate-50/50 space-y-1.5">
+                    <button
+                      onClick={() => {
+                        setShowRegistrationModal(true);
+                        setShowPersonaMenu(false);
+                      }}
+                      className="w-full py-1.5 px-2.5 rounded-lg bg-blue-50 hover:bg-blue-100 text-blue-700 text-xs font-semibold flex items-center justify-center gap-1.5 transition-colors"
+                    >
+                      <UserPlus className="w-3.5 h-3.5" />
+                      <span>Register New Student Account</span>
+                    </button>
                     <p className="text-[10px] text-slate-500 px-1">
                       Current student ID: <span className="font-mono text-slate-700 font-semibold">{currentUser.studentIdNumber || 'N/A'}</span>
                     </p>
@@ -300,6 +313,11 @@ export const Header: React.FC<HeaderProps> = () => {
           </div>
         </div>
       </div>
+
+      {/* Student Registration Modal */}
+      {showRegistrationModal && (
+        <StudentRegistrationModal onClose={() => setShowRegistrationModal(false)} />
+      )}
     </header>
   );
 };

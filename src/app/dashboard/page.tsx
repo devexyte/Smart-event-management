@@ -40,6 +40,7 @@ import { ScoringStudioModal } from '@/components/judge/ScoringStudioModal';
 import { TeamsManager } from '@/components/organizer/TeamsManager';
 import { SubmissionsReview } from '@/components/organizer/SubmissionsReview';
 import { JudgingOversight } from '@/components/organizer/JudgingOversight';
+import { AnnouncementsFeed } from '@/components/participant/AnnouncementsFeed';
 
 export default function DashboardPage() {
   const { currentRole, registerForEvent, registrations, currentUser } = useEvent();
@@ -74,6 +75,8 @@ export default function DashboardPage() {
       switch (activeTab) {
         case 'catalogue':
           return <EventCatalogue />;
+        case 'notices':
+          return <AnnouncementsFeed />;
         case 'registrations':
           return <MyRegistrations />;
         case 'calendar':

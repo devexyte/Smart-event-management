@@ -127,7 +127,7 @@ export const EventCreationModal: React.FC<EventCreationModalProps> = ({
         <div className="flex items-center justify-between p-5 border-b border-slate-100 shrink-0 bg-white">
           <div>
             <h2 className="text-lg font-bold text-slate-900">
-              {isEditing ? 'Modify Event Details (FR5)' : 'Create New Campus Event (FR3)'}
+              {isEditing ? 'Modify Event Details' : 'Create New Campus Event'}
             </h2>
             <p className="text-xs text-slate-500 mt-0.5">
               Draft your event specs, set capacity quotas, assign venues, and define session timelines.
@@ -284,7 +284,7 @@ export const EventCreationModal: React.FC<EventCreationModalProps> = ({
           <div className="space-y-2 pt-4 border-t border-slate-100">
             <div className="flex items-center justify-between">
               <label className="font-semibold text-slate-800">
-                Event Agenda & Session Breakdown (FR11)
+                Event Agenda & Session Breakdown
               </label>
               <button
                 type="button"

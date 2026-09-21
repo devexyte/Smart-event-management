@@ -17,6 +17,7 @@ import {
   SlidersHorizontal,
   X,
   Sparkles,
+  Bell,
 } from 'lucide-react';
 import { EventDetailModal } from './EventDetailModal';
 
@@ -29,6 +30,7 @@ export const EventCatalogue: React.FC = () => {
     registrations,
     registerForEvent,
     toggleBookmark,
+    announcements,
   } = useEvent();
 
   const [searchQuery, setSearchQuery] = useState('');
@@ -77,6 +79,33 @@ export const EventCatalogue: React.FC = () => {
 
   return (
     <div className="space-y-6">
+      {/* Latest Broadcast Alert Banner */}
+      {announcements && announcements.length > 0 && (
+        <div className="bg-gradient-to-r from-blue-50 via-sky-50 to-indigo-50 border border-blue-200/90 rounded-2xl p-4 flex items-start sm:items-center justify-between gap-3 shadow-xs">
+          <div className="flex items-start sm:items-center gap-3">
+            <div className="w-9 h-9 rounded-xl bg-blue-600 text-white flex items-center justify-center shrink-0 shadow-xs">
+              <Bell className="w-4 h-4" />
+            </div>
+            <div>
+              <div className="flex items-center gap-2 flex-wrap">
+                <span className="text-xs font-bold text-blue-950">
+                  Organizer Broadcast: {announcements[0].title}
+                </span>
+                <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-blue-100 text-blue-700">
+                  {announcements[0].category.toUpperCase()}
+                </span>
+              </div>
+              <p className="text-xs text-slate-600 mt-0.5 line-clamp-1">
+                {announcements[0].message}
+              </p>
+            </div>
+          </div>
+          <span className="text-[11px] text-slate-500 font-medium shrink-0 hidden md:inline">
+            From: {announcements[0].author}
+          </span>
+        </div>
+      )}
+
       {/* Header Banner */}
       <div className="bg-white border border-slate-200 rounded-2xl p-6 shadow-xs">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">

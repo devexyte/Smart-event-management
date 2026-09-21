@@ -18,11 +18,14 @@ import {
   FileCheck2,
   Bell,
   CheckCircle2,
+  UserPlus,
 } from 'lucide-react';
 import { useEvent } from '@/context/EventContext';
+import { StudentRegistrationModal } from '@/components/common/StudentRegistrationModal';
 
 export default function LandingPage() {
   const { events, setRole, switchUser, users, stats } = useEvent();
+  const [showRegistrationModal, setShowRegistrationModal] = React.useState(false);
 
   const publishedEvents = events.filter((e) => e.status === 'published');
   const featuredEvents = publishedEvents.slice(0, 3);
@@ -54,6 +57,14 @@ export default function LandingPage() {
           </div>
 
           <div className="flex items-center gap-2.5">
+            <button
+              onClick={() => setShowRegistrationModal(true)}
+              className="px-3.5 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-semibold border border-slate-200 transition-colors flex items-center gap-1.5"
+            >
+              <UserPlus className="w-3.5 h-3.5 text-blue-600" />
+              <span>Register Student</span>
+            </button>
+
             <Link
               href="/dashboard"
               onClick={() => {
@@ -100,11 +111,19 @@ export default function LandingPage() {
 
         {/* Primary Call to Action */}
         <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
-          <a
-            href="#events"
+          <button
+            onClick={() => setShowRegistrationModal(true)}
             className="px-6 py-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs sm:text-sm font-semibold shadow-xs transition-colors flex items-center gap-2"
           >
-            <Calendar className="w-4 h-4" />
+            <UserPlus className="w-4 h-4" />
+            <span>New Student? Register Profile</span>
+          </button>
+
+          <a
+            href="#events"
+            className="px-6 py-3 rounded-xl bg-white hover:bg-slate-50 text-slate-800 text-xs sm:text-sm font-semibold border border-slate-200 shadow-2xs transition-colors flex items-center gap-2"
+          >
+            <Calendar className="w-4 h-4 text-blue-600" />
             <span>Explore Campus Events</span>
           </a>
 
@@ -497,6 +516,11 @@ export default function LandingPage() {
           <p>Smart Campus Event & Symposium Management System</p>
         </div>
       </footer>
+
+      {/* Student Registration Modal */}
+      {showRegistrationModal && (
+        <StudentRegistrationModal onClose={() => setShowRegistrationModal(false)} />
+      )}
     </div>
   );
 }
