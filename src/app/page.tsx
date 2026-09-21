@@ -27,6 +27,7 @@ import {
   Search,
   Radio,
   SlidersHorizontal,
+  GraduationCap,
 } from 'lucide-react';
 import { useEvent } from '@/context/EventContext';
 import { StudentRegistrationModal } from '@/components/common/StudentRegistrationModal';
@@ -133,62 +134,54 @@ export default function LandingPage() {
         </span>
       </div>
 
-      {/* Premium Collegiate Blue & Campus Image Hero Section */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-blue-950 via-blue-900 to-indigo-950 text-white py-16 sm:py-20 px-4 sm:px-6 lg:px-8 border-b border-blue-800/50">
-        {/* Subtle Campus Architectural Photography with deep blue blend */}
-        <div className="absolute inset-0 z-0 pointer-events-none">
+      {/* Collegiate Navy Blue Hero Section */}
+      <section className="relative bg-[#0b2545] text-white py-14 sm:py-16 px-4 sm:px-6 lg:px-8 border-b border-blue-900">
+        {/* Subtle background photo overlay */}
+        <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
           <img
-            src="https://images.unsplash.com/photo-1541829070764-84a7d30dd3f3?w=1600&auto=format&fit=crop&q=85"
-            alt="Ramnarain Ruia Autonomous College Campus Architecture"
-            className="w-full h-full object-cover opacity-15 mix-blend-luminosity"
+            src="https://images.unsplash.com/photo-1541829070764-84a7d30dd3f3?w=1600&auto=format&fit=crop&q=80"
+            alt="Ruia College Campus"
+            className="w-full h-full object-cover opacity-15"
           />
-          {/* Deep royal blue gradient overlays for maximum contrast and polish */}
-          <div className="absolute inset-0 bg-gradient-to-b from-blue-950/90 via-blue-900/85 to-indigo-950/95" />
-          {/* Subtle geometric dot grid for texture */}
-          <div className="absolute inset-0 bg-[radial-gradient(#60a5fa_1px,transparent_1px)] [background-size:24px_24px] opacity-15" />
+          <div className="absolute inset-0 bg-[#0b2545]/90" />
         </div>
 
-        <div className="relative z-10 max-w-4xl mx-auto text-center space-y-6">
-          {/* Accreditation & Institution Pill */}
-          <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-xs text-blue-100 shadow-sm">
-            <span className="flex h-2 w-2 relative">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-400"></span>
-            </span>
-            <span className="font-semibold text-white">Ramnarain Ruia Autonomous College</span>
-            <span className="text-blue-300">•</span>
-            <span className="text-blue-200">Estd. 1937 • NAAC 'A+' Grade (CGPA 3.70)</span>
+        <div className="relative z-10 max-w-4xl mx-auto text-center space-y-5">
+          {/* Institutional Badge */}
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-blue-900/60 border border-blue-700/60 text-xs text-blue-200">
+            <GraduationCap className="w-3.5 h-3.5 text-blue-300" />
+            <span>Ramnarain Ruia Autonomous College • NAAC 'A+' Grade • Estd. 1937</span>
           </div>
 
-          {/* Smart Event Management Main Title */}
-          <div className="space-y-3">
-            <h1 className="text-4xl sm:text-6xl font-black text-white tracking-tight leading-[1.1] drop-shadow-sm">
+          {/* Smart Event Management Title */}
+          <div className="space-y-2">
+            <h1 className="text-3xl sm:text-5xl font-bold text-white tracking-tight">
               Smart Event Management
             </h1>
-            <p className="text-lg sm:text-2xl font-bold text-blue-200 tracking-tight">
+            <p className="text-base sm:text-xl font-medium text-blue-200">
               Official Campus Events, Festivals & Academic Symposiums Portal
             </p>
           </div>
 
-          <p className="text-sm sm:text-base text-blue-100/90 max-w-2xl mx-auto leading-relaxed">
+          <p className="text-xs sm:text-sm text-blue-100/80 max-w-2xl mx-auto leading-relaxed">
             The centralized platform for Ramnarain Ruia Autonomous College, Matunga. Discover academic symposiums, department festivals, competitive hackathons, and guest lectures with instant digital QR passes, live organizer broadcast alerts, and verified credentials.
           </p>
 
-          {/* Primary Calls to Action */}
-          <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
+          {/* Action Buttons */}
+          <div className="flex flex-wrap items-center justify-center gap-3 pt-1">
             <button
               onClick={() => setShowRegistrationModal(true)}
-              className="px-6 py-3 rounded-xl bg-white hover:bg-blue-50 text-blue-900 text-xs sm:text-sm font-bold shadow-lg hover:shadow-xl transition-all flex items-center gap-2 cursor-pointer transform hover:-translate-y-0.5"
+              className="px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs sm:text-sm font-semibold transition-colors flex items-center gap-2 cursor-pointer shadow-xs"
             >
-              <UserPlus className="w-4 h-4 text-blue-700" />
+              <UserPlus className="w-4 h-4" />
               <span>New Student? Register Profile</span>
             </button>
 
             <a
               href="#events"
-              className="px-6 py-3 rounded-xl bg-blue-800/80 hover:bg-blue-800 text-white text-xs sm:text-sm font-semibold border border-blue-400/40 backdrop-blur-xs shadow-sm transition-all flex items-center gap-2"
+              className="px-5 py-2.5 rounded-xl bg-white hover:bg-slate-100 text-slate-800 text-xs sm:text-sm font-semibold transition-colors flex items-center gap-2 shadow-xs"
             >
-              <Calendar className="w-4 h-4 text-blue-300" />
+              <Calendar className="w-4 h-4 text-blue-600" />
               <span>Explore Campus Events</span>
             </a>
 
@@ -199,7 +192,7 @@ export default function LandingPage() {
                 const s = users.find((u) => u.role === 'student');
                 if (s) switchUser(s.id);
               }}
-              className="px-5 py-3 rounded-xl bg-white/10 hover:bg-white/20 text-white text-xs sm:text-sm font-semibold border border-white/25 backdrop-blur-xs transition-all flex items-center gap-2"
+              className="px-5 py-2.5 rounded-xl bg-blue-900/80 hover:bg-blue-800 text-blue-100 text-xs sm:text-sm font-medium border border-blue-700/60 transition-colors flex items-center gap-2"
             >
               <Code className="w-4 h-4 text-blue-300" />
               <span>Hackathon Hub</span>
@@ -207,28 +200,28 @@ export default function LandingPage() {
           </div>
 
           {/* Search & Category Filter Bar */}
-          <div className="pt-4 max-w-xl mx-auto">
+          <div className="pt-2 max-w-lg mx-auto">
             <div className="relative">
               <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
               <input
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Search symposiums, hackathons, venues (e.g., TechNova, Quadrangle)..."
-                className="w-full pl-10 pr-4 py-3 rounded-2xl bg-white text-slate-900 placeholder:text-slate-400 text-xs shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all"
+                placeholder="Search symposiums, hackathons, venues (e.g. TechNova, Quadrangle)..."
+                className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-white text-slate-900 placeholder:text-slate-400 text-xs border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500 shadow-xs"
               />
             </div>
 
             {/* Category Pills */}
-            <div className="flex items-center justify-center gap-2 overflow-x-auto pt-3 pb-1">
+            <div className="flex items-center justify-center gap-1.5 overflow-x-auto pt-2.5 pb-1">
               {categories.map((cat) => (
                 <button
                   key={cat.id}
                   onClick={() => setActiveCategory(cat.id)}
-                  className={`px-3 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-all cursor-pointer ${
+                  className={`px-3 py-1 rounded-lg text-xs font-medium whitespace-nowrap transition-colors cursor-pointer ${
                     activeCategory === cat.id
-                      ? 'bg-blue-500 text-white shadow-sm'
-                      : 'bg-white/10 text-blue-100 hover:bg-white/20 border border-white/15'
+                      ? 'bg-blue-600 text-white'
+                      : 'bg-blue-900/60 text-blue-200 hover:bg-blue-800/60 border border-blue-700/50'
                   }`}
                 >
                   {cat.label}
@@ -237,22 +230,22 @@ export default function LandingPage() {
             </div>
           </div>
 
-          {/* Statistics Highlights - Frosted Glass Cards */}
-          <div className="pt-6 grid grid-cols-2 md:grid-cols-4 gap-3 max-w-3xl mx-auto">
-            <div className="p-3.5 rounded-2xl bg-white/10 backdrop-blur-md border border-white/15 text-center shadow-xs">
-              <span className="text-2xl sm:text-3xl font-black font-mono text-white">{stats.totalEvents}</span>
+          {/* Statistics Highlights */}
+          <div className="pt-3 grid grid-cols-2 md:grid-cols-4 gap-3 max-w-3xl mx-auto">
+            <div className="p-3 rounded-xl bg-blue-900/40 border border-blue-800/60 text-center">
+              <span className="text-2xl font-bold font-mono text-white">{stats.totalEvents}</span>
               <span className="text-xs text-blue-200 block mt-0.5">Active Campus Events</span>
             </div>
-            <div className="p-3.5 rounded-2xl bg-white/10 backdrop-blur-md border border-white/15 text-center shadow-xs">
-              <span className="text-2xl sm:text-3xl font-black font-mono text-emerald-400">{stats.totalRegistrations}+</span>
+            <div className="p-3 rounded-xl bg-blue-900/40 border border-blue-800/60 text-center">
+              <span className="text-2xl font-bold font-mono text-white">{stats.totalRegistrations}+</span>
               <span className="text-xs text-blue-200 block mt-0.5">Student Registrations</span>
             </div>
-            <div className="p-3.5 rounded-2xl bg-white/10 backdrop-blur-md border border-white/15 text-center shadow-xs">
-              <span className="text-2xl sm:text-3xl font-black font-mono text-sky-300">{stats.checkInPercentage}%</span>
+            <div className="p-3 rounded-xl bg-blue-900/40 border border-blue-800/60 text-center">
+              <span className="text-2xl font-bold font-mono text-white">{stats.checkInPercentage}%</span>
               <span className="text-xs text-blue-200 block mt-0.5">Gate Verification Rate</span>
             </div>
-            <div className="p-3.5 rounded-2xl bg-white/10 backdrop-blur-md border border-white/15 text-center shadow-xs">
-              <span className="text-2xl sm:text-3xl font-black font-mono text-amber-300">Estd. 1937</span>
+            <div className="p-3 rounded-xl bg-blue-900/40 border border-blue-800/60 text-center">
+              <span className="text-2xl font-bold font-mono text-white">Estd. 1937</span>
               <span className="text-xs text-blue-200 block mt-0.5">85+ Years of Heritage</span>
             </div>
           </div>
